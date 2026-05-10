@@ -21,7 +21,7 @@
                                     </h5>
                                     <p class="text-muted mb-0 small">
                                         <i class="bi bi-cash-stack me-1"></i> ${item.vacancy.salary!0} грн. |
-                                        <i class="bi bi-clock me-1"></i> ${item.vacancy.workingConditions}
+                                        <i class="bi bi-clock me-1"></i> ${item.vacancy.workingConditions!""}
                                     </p>
                                 </div>
 
@@ -49,7 +49,7 @@
                 <i class="bi bi-bookmark-star text-light-emphasis" style="font-size: 4rem;"></i>
                 <h3 class="mt-3 text-muted">Ваш список обраного порожній</h3>
                 <p>Додавайте цікаві вакансії, щоб не загубити їх.</p>
-                <a href="/vacancies" class="btn btn-primary mt-2">
+                <a href="/" class="btn btn-primary mt-2">
                     Переглянути вакансії
                 </a>
             </div>

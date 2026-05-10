@@ -35,11 +35,21 @@
                             <i class="bi bi-geo-alt me-2 text-primary"></i>
                             <b>Локація:</b> ${vacancy.requirements}
                         </li>
-                        <li class="list-group-item text-center py-3">
-                            <button class="btn btn-primary w-100">Відгукнутися</button>
-                        </li>
-
                     </ul>
+                    <div class="mt-4">
+                        <form action="/vacancies/apply" method="POST">
+                            <#-- Передаємо ID вакансії приховано -->
+                            <input type="hidden" name="vacancyId" value="${vacancy.id}">
+
+                            <#-- Для тесту можна передати ID профілю вручну (наприклад, твій ID = 1) -->
+                            <#-- У реальному проекті ми б брали його з сесії авторизованого юзера -->
+                            <input type="hidden" name="profileId" value="1">
+
+                            <button type="submit" class="btn btn-success btn-lg w-100">
+                                <i class="bi bi-send-fill me-2"></i>Відгукнутися на вакансію
+                            </button>
+                        </form>
+                    </div>
                     <form action="/addFavorite" method="post" style="display:inline;">
                         <input type="hidden" name="id" value="${vacancy.id}">
                         <button type="submit" class="btn btn-outline-warning">

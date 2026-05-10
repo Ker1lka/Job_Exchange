@@ -17,43 +17,38 @@
                     <div class="card-body p-4">
                         <form action="/vacancies/create" method="POST">
                             <div class="row">
-                                <#-- Назва посади -->
                                 <div class="col-md-8 mb-3">
                                     <label for="position" class="form-label fw-bold">Назва посади</label>
                                     <input type="text" class="form-control" id="position" name="position" required>
                                 </div>
-
-                                <#-- Зарплата -->
                                 <div class="col-md-4 mb-3">
                                     <label for="salary" class="form-label fw-bold">Зарплата (грн.)</label>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" id="salary" name="salary" placeholder="0">
+                                        <input type="number" class="form-control" id="salary" name="salary"
+                                               placeholder="0">
                                         <span class="input-group-text">₴</span>
                                     </div>
                                 </div>
                             </div>
-
-                            <#-- Умови роботи (те саме поле, про яке ми говорили) -->
                             <div class="mb-3">
                                 <label for="working_conditions" class="form-label fw-bold">Умови роботи</label>
-                                <input type="text" class="form-control" id="working_conditions" name="working_conditions">
+                                <input type="text" class="form-control" id="working_conditions"
+                                       name="working_conditions">
                             </div>
 
                             <div class="mb-3">
                                 <label for="working_conditions" class="form-label fw-bold">Назва компанії</label>
-                                <input type="text" class="form-control" id="working_conditions" name="working_conditions">
+                                <input type="text" class="form-control" id="working_conditions"
+                                       name="working_conditions">
                             </div>
-                            <#-- Опис вакансії -->
                             <div class="mb-3">
                                 <label for="description" class="form-label fw-bold">Опис вакансії</label>
                                 <textarea class="form-control" id="description" name="description" rows="5"></textarea>
                             </div>
-
-                            <#-- Вимоги -->
                             <div class="mb-3">
                                 <label for="requirements" class="form-label fw-bold">Вимоги до кандидата</label>
-                                <textarea class="form-control" id="requirements" name="requirements" rows="4"
-                                          placeholder="Технічні навички, досвід..."></textarea>
+                                <textarea class="form-control" id="requirements" name="requirements"
+                                          rows="4"></textarea>
                             </div>
 
                             <hr class="my-4">

@@ -12,6 +12,7 @@
     <div class="container-fluid">
         <!--Navigation Bar-->
         <#include "navbar.ftl"/>
+
         <!-- Main Content Row -->
         <div class="row g-4">
             <!-- Left Panel -->

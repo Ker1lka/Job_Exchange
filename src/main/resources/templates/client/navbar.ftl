@@ -17,6 +17,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">About-us</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/favorites">
+                        <i class="bi bi-star me-1 text-warning"></i> Обране
+                    </a>
+                </li>
             </ul>
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>

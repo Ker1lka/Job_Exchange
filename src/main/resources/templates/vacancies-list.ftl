@@ -11,6 +11,12 @@
                                 <br>Description: Company name ${vacancy.company.name}. ${vacancy.company.description} <br> ${vacancy.salary}₴
                             </p>
                             <a href="/vacancy/${vacancy.id}" class="btn btn-primary">Details</a>
+                            <form action="/addFavorite" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="${vacancy.id}">
+                                <button type="submit" class="btn btn-outline-warning">
+                                    <i class="bi bi-star"></i> В обране
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -38,8 +38,16 @@
                         <li class="list-group-item text-center py-3">
                             <button class="btn btn-primary w-100">Відгукнутися</button>
                         </li>
+
                     </ul>
+                    <form action="/addFavorite" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="${vacancy.id}">
+                        <button type="submit" class="btn btn-outline-warning">
+                            <i class="bi bi-star"></i> В обране
+                        </button>
+                    </form>
                 </div>
+
                 <a href="/" class="btn btn-outline-secondary w-100">
                     <i class="bi bi-arrow-left me-2"></i>Назад до списку
                 </a>

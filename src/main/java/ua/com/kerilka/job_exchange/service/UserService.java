@@ -3,6 +3,7 @@ package ua.com.kerilka.job_exchange.service;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,13 +21,10 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Users user = usersRepository.findByUsername(username);
 
-        if (user == null) {
-            throw new UsernameNotFoundException(username);
-        }
+        if (user == null) throw new UsernameNotFoundException(username);
+        return user;}
 
-        return user;
-    }
-
+    @Cacheable(cacheNames = "user", key = "#username")
     public Users findUserByUsername(String username) {
         return usersRepository.findByUsername(username);
     }

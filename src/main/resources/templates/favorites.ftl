@@ -16,12 +16,12 @@
                                     <h5 class="card-title mb-1">
                                         <a href="/vacancy/${item.vacancy.id}"
                                            class="text-decoration-none text-dark fw-bold">
-                                            ${item.vacancy.position}
+                                            ${(item.vacancy.position!'')}
                                         </a>
                                     </h5>
                                     <p class="text-muted mb-0 small">
-                                        <i class="bi bi-cash-stack me-1"></i> ${item.vacancy.salary!0} грн. |
-                                        <i class="bi bi-clock me-1"></i> ${item.vacancy.workingConditions!""}
+                                        <i class="bi bi-cash-stack me-1"></i> ${(item.vacancy.salary!0)} грн. |
+                                        <i class="bi bi-clock me-1"></i> ${(item.vacancy.workingConditions!'')}
                                     </p>
                                 </div>
 

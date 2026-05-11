@@ -6,11 +6,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.com.kerilka.job_exchange.entity.ProfileHasVacancy;
 import ua.com.kerilka.job_exchange.entity.Profiles;
+import ua.com.kerilka.job_exchange.entity.Users;
 import ua.com.kerilka.job_exchange.entity.Vacancy;
-import ua.com.kerilka.job_exchange.service.CompanyService;
-import ua.com.kerilka.job_exchange.service.ProfileHasVacancyService;
-import ua.com.kerilka.job_exchange.service.ProfilesService;
-import ua.com.kerilka.job_exchange.service.VacancyService;
+import ua.com.kerilka.job_exchange.service.*;
+
+import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,6 +20,8 @@ public class VacancyController {
     private final ProfilesService profileService;
     private final VacancyService vacancyService;
     private final CompanyService companyService;
+    private final UserService userService;
+    private final ProfileHasVacancyService phvService;
 
     @GetMapping("/")
     public String showAllVacancies(Model model) {
@@ -39,6 +41,11 @@ public class VacancyController {
         model.addAttribute("create_vacancy", vacancyService.findAllVacancies());
         return "vacancy-create";
     }
+    @GetMapping("/thanks")
+    public String showSuccessPage() {
+        return "thanks"; // Назва файлу .ftl
+    }
+
 
     @PostMapping("/vacancies/create")
     public String createVacancy(@ModelAttribute Vacancy vacancy) {
@@ -49,14 +56,17 @@ public class VacancyController {
         return "redirect:/";
     }
     @PostMapping("/vacancies/apply")
-    public String applyToVacancy(@RequestParam Long vacancyId, @RequestParam Long profileId) {
-        Profiles profile = profileService.findByIdProfile(profileId);
-        Vacancy vacancy = vacancyService.findByIdVacancy(vacancyId);
+    public String applyForVacancy(@RequestParam("vacancyId") Long vacancyId,
+                                  Principal principal) {
 
-        if (profile != null && vacancy != null) {
-            profileHasVacancyService.apply(profile, vacancy);
-        }
+        // 1. Отримуємо дані про поточного кандидата
+        Users currentUser = userService.findUserByUsername(principal.getName());
+        Profiles currentProfile = profileService.findByUser(currentUser);
 
+        // 2. Викликаємо метод нашого профільного сервісу
+        phvService.apply(currentProfile, vacancyId);
+
+        // 3. Редірект на GetMapping "/thanks"
         return "redirect:/thanks";
     }
 }

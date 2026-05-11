@@ -21,13 +21,13 @@
                         <div class="card-header bg-light fw-bold">Контактна інформація</div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                <i class="bi bi-envelope-at me-2"></i>Пошта: ${profile.email}
+                                <i class="bi bi-envelope-at me-2"></i>Пошта: ${(profile.email!'не вказано')}
                             </li>
                             <li class="list-group-item">
-                                <i class="bi bi-telephone me-2"></i>Телефон: ${profile.phone}
+                                <i class="bi bi-telephone me-2"></i>Телефон: ${(profile.phone!'не вказано')}
                             </li>
                             <li class="list-group-item">
-                                <i class="bi bi-geo-alt me-2"></i>Місто: ${profile.address!}
+                                <i class="bi bi-geo-alt me-2"></i>Місто: ${(profile.address!'не вказано')}
                             </li>
                         </ul>
                     </div>
@@ -37,13 +37,15 @@
                         <div class="card shadow-sm">
                             <div class="card-header bg-light fw-bold">Резюме</div>
                             <ul class="list-group list-group-flush">
+                                <#if profile.experiences??>
                                 <#list profile.experiences as experiences>
                                     <li class="list-group-item">
-                                        <i class="bi bi-envelope-at me-2"></i>Досвід: ${experiences.position}, ${experiences.timeOfExperience} роки
+                                        <i class="bi bi-envelope-at me-2"></i>Досвід: ${(experiences.position!'не вказано')}, ${(experiences.timeOfExperience!'не вказано')} рокии
                                     </li>
                                 </#list>
+                                </#if>
                                 <li class="list-group-item">
-                                    <i class="bi bi-telephone me-2"></i>Вимоги до праці: ${profile.jobRequirements.preferredLocation}, ${profile.jobRequirements.minSalary}, ${profile.jobRequirements.profession.title}
+                                    <i class="bi bi-telephone me-2"></i>Вимоги до праці: ${(profile.jobRequirements.preferredLocation!'не вказано')}, ${(profile.jobRequirements.minSalary!'не вказано')}, ${(profile.jobRequirements.profession.title!'не вказано')}
                                 </li>
                             </ul>
                         </div>
@@ -56,8 +58,8 @@
                             <#if profile.educations??>
                                 <#list profile.educations as edu>
                                     <li class="list-group-item">
-                                        <h6>Освітній заклад: ${edu.institution}, ${edu.specialization}</h6>
-                                        <small class="text-muted">Років навчання: ${edu.graduationYear}, ${edu.degree}</small>
+                                        <h6>Освітній заклад: ${(edu.institution!'не вказано')}, ${(edu.specialization!'не вказано')}</h6>
+                                        <small class="text-muted">Років навчання: ${(edu.graduationYear!'не вказано')}, ${(edu.degree!'не вказано')}</small>
                                     </li>
                                 </#list>
                             </#if>
@@ -68,12 +70,14 @@
                 <div class="col-md-6">
                     <div class="card h-100 shadow-sm">
                         <div class="card-header fw-bold">Навички</div>
+                        <#if profile.profileHasProfessions??>
                         <#list profile.profileHasProfessions as profession>
                             <div class="card-body">
-                                <span class="badge bg-info text-dark">${profession.profession.title}</span>
-                                <span class="badge bg-info text-dark">${profession.skillLevel}</span>
+                                <span class="badge bg-info text-dark">${(profession.profession.title!'не вказано')}</span>
+                                <span class="badge bg-info text-dark">${(profession.skillLevel!'не вказано')}</span>
                             </div>
                         </#list>
+                        </#if>
                     </div>
                 </div>
             </#if>

@@ -25,9 +25,19 @@
                     <div class="mb-3">
                         <label class="form-label fw-bold">Оберіть компанію</label>
                         <div class="input-group">
-                            <input list="companyOptions" name="companyName">
+                            <select class="form-select" name="company.id" required>
+                                <option value="">-- Оберіть зі списку --</option>
+                                <#-- Використовуй "companies", як ми передали з контролера -->
+                                <#list companies as c>
+                                    <option value="${c.id}">${c.name}</option>
+                                </#list>
+                            </select>
                             <#-- Кнопка переходу на створення компанії -->
+                            <a href="/companies/create" class="btn btn-outline-secondary" type="button">
+                                <i class="bi bi-plus-lg"></i> + Додати нову
+                            </a>
                         </div>
+                        <div class="form-text">Не знайшли свою компанію? Створіть її спочатку.</div>
                     </div>
 
                     <div class="mb-3">

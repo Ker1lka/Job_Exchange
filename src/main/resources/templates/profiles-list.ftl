@@ -20,14 +20,17 @@
                         <#list profiles as profile>
                             <tbody>
                             <tr>
-                                <td>${profile.firstName} ${profile.lastName}</td>
+                                <td>${(profile.firstName!'')} ${(profile.lastName!'')}</td>
+                                <#if profile.profileHasProfessions??>
                                 <#list profile.profileHasProfessions as profession>
-                                    <td>${profession.profession.title}</td>
-                                    <td>${profession.skillLevel}</td>
+                                    <td>${(profession.profession.title!'')}</td>
+                                    <td>${(profession.skillLevel!'')}</td>
                                 </#list>
+                                </#if>
+                                <#if profile.experiences??>
                                 <#list profile.experiences as experience>
-                                <td>${experience.timeOfExperience} роки</td>
-                                </#list>>
+                                <td>${(experience.timeOfExperience!'')} роки</td>
+                                </#list>></#if>
                                 <td class="text-end">
                                     <a href="/profiles/${profile.id}"
                                        class="btn btn-sm btn-outline-primary">Переглянути</a>

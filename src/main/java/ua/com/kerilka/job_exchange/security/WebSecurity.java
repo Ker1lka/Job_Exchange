@@ -33,7 +33,8 @@ public class WebSecurity {
 
                                 .requestMatchers("/", "/login", "/registration", "/static/**", "/favorites", "/addFavorite",
                                         "/deleteFavorite", "/profiles/list").permitAll()
-                                .requestMatchers("/vacancies/apply", "/thanks").hasAuthority("ROLE_user")
+                                .requestMatchers("/vacancies/apply", "/thanks", "/vacancies/apply",
+                                        "/vacancies/create", "/companies/create").hasAuthority("ROLE_user")
                                 .requestMatchers("/vacancy/{id}").permitAll()
                                 .requestMatchers("/manager").hasAuthority("ROLE_manager")
                                 .requestMatchers("/admin").hasAuthority("ROLE_admin")

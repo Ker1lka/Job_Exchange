@@ -6,5 +6,6 @@ import ua.com.kerilka.job_exchange.entity.Profiles;
 
 @Repository
 public interface ProfilesRepository extends JpaRepository<Profiles, Long> {
+
     Profiles findByFirstName(String firstName);
 }

@@ -13,6 +13,10 @@ import java.util.List;
 public class VacancyService {
     private final VacancyRepository vacancyRepository;
 
+    public List<Vacancy> findVacanciesByAuthorId(Long authorId) {
+        return vacancyRepository.findByAuthorId(authorId);
+    }
+
     public List<Vacancy> findAllVacancies() {return vacancyRepository.findAll();}
     public Vacancy findByIdVacancy(Long id) {return vacancyRepository.findById(id).get();}
     public void save(Vacancy vacancy) {vacancyRepository.save(vacancy);}

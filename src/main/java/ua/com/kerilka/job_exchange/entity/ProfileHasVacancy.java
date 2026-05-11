@@ -18,7 +18,7 @@ public class ProfileHasVacancy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String status;
-    private LocalDateTime createdDate;
+    private LocalDateTime createdDate =  LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "profile_id")

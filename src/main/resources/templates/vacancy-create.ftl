@@ -24,14 +24,10 @@
 
                     <div class="mb-3">
                         <label class="form-label fw-bold">Оберіть компанію</label>
-                        <#-- Поле: company (об'єкт). Передаємо через id -->
-                        <select class="form-select" name="company.id" required>
-                            <option value="">-- Оберіть компанію --</option>
-                            <#list companies as company>
-                                <option value="${company.id}">${company.name}</option>
-                            </#list>
-                        </select>
-
+                        <div class="input-group">
+                            <input list="companyOptions" name="companyName">
+                            <#-- Кнопка переходу на створення компанії -->
+                        </div>
                     </div>
 
                     <div class="mb-3">

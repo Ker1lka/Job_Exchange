@@ -6,4 +6,5 @@ import ua.com.kerilka.job_exchange.entity.Company;
 
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, Long> {
+    Company findByName(String name);
 }

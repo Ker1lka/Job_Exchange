@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ua.com.kerilka.job_exchange.entity.Company;
 import ua.com.kerilka.job_exchange.entity.ProfileHasVacancy;
 import ua.com.kerilka.job_exchange.entity.Profiles;
 import ua.com.kerilka.job_exchange.entity.Vacancy;
@@ -11,6 +12,8 @@ import ua.com.kerilka.job_exchange.service.CompanyService;
 import ua.com.kerilka.job_exchange.service.ProfileHasVacancyService;
 import ua.com.kerilka.job_exchange.service.ProfilesService;
 import ua.com.kerilka.job_exchange.service.VacancyService;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -39,6 +42,31 @@ public class VacancyController {
         model.addAttribute("create_vacancy", vacancyService.findAllVacancies());
         return "vacancy-create";
     }
+    @GetMapping("/vacancies/my")
+    public String showMyVacancies(Model model) {
+        // В реальному проекті ми беремо ID з Spring Security сесії
+        Long currentProfileId = 1L;
+
+        // Отримуємо вакансії тільки цієї компанії/юзера
+        List<Vacancy> myVacancies = vacancyService.findVacanciesByAuthorId(currentProfileId);
+        model.addAttribute("vacancies", myVacancies);
+
+        return "my-vacancies";
+    }
+
+    // Сторінка відгуків на конкретну вакансію
+    @GetMapping("/vacancies/{id}/applications")
+    public String showApplications(@PathVariable Long id, Model model) {
+        List<ProfileHasVacancy> apps = profileHasVacancyService.getApplicationsForVacancy(id);
+        model.addAttribute("applications", apps);
+        model.addAttribute("vacancy", vacancyService.findByIdVacancy(id));
+
+        return "vacancy-applications"; // Треба буде створити такий .ftl
+    }
+    @GetMapping("/thanks")
+    public String showSuccessPage() {
+        return "thanks"; // Назва файлу .ftl
+    }
 
     @PostMapping("/vacancies/create")
     public String createVacancy(@ModelAttribute Vacancy vacancy) {
@@ -57,6 +85,26 @@ public class VacancyController {
             profileHasVacancyService.apply(profile, vacancy);
         }
 
-        return "redirect:/vacancy/" + vacancyId + "?applied=true";
+        return "redirect:/thanks";
+    }
+
+    @PostMapping("/vacancy/create")
+    public String saveVacancy(@ModelAttribute Vacancy vacancy, @RequestParam("companyName") String companyName) {
+        // 1. Шукаємо компанію за назвою
+        Company company = companyService.findByName(companyName);
+
+        // 2. Якщо не знайшли — створюємо нову
+        if (company == null) {
+            company = new Company();
+            company.setName(companyName);
+            // КРИТИЧНО: зберегти і переприсвоїти, щоб отримати ID з бази
+            company = companyService.save(company);
+        }
+        vacancy.setCompany(company);
+
+        // 4. Зберігаємо вакансію
+        vacancyService.save(vacancy);
+
+        return "redirect:/";
     }
 }

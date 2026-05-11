@@ -26,6 +26,10 @@ public class Vacancy {
     private boolean isArchived;
 
     @ManyToOne
+    @JoinColumn(name = "author_id")
+    private Profiles author;
+
+    @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
 

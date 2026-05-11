@@ -5,5 +5,7 @@ import org.springframework.stereotype.Repository;
 import ua.com.kerilka.job_exchange.entity.Users;
 
 @Repository
-public interface UsersRepository extends JpaRepository<Users, Long> {
+public interface UserRepository extends JpaRepository<Users, Long> {
+
+    Users findByUsername(String username);
 }

@@ -23,7 +23,6 @@
                             <p class="text-muted small mb-2">Ще не маєте акаунту?</p>
                             <div class="d-grid gap-2">
                                 <a href="/registration" class="btn btn-outline-primary">Зареєструватись як Кандидат</a>
-                                <a href="/registration-company" class="btn btn-outline-success">Зареєструвати Компанію</a>
                             </div>
                         </div>
                     </div>

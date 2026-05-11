@@ -23,11 +23,11 @@ public class Profiles {
     private String firstName;
     private String lastName;
     private String middleName;
+    private int age;
     private String phone;
     private String email;
     private String address;
     private String image;
-    private int age;
 
     @OneToOne
     @MapsId
@@ -48,7 +48,4 @@ public class Profiles {
 
     @OneToOne(mappedBy = "profile")
     private JobRequirements jobRequirements;
-
-    @OneToMany(mappedBy = "author")
-    private List<Vacancy> vacancies = new ArrayList<>();
 }

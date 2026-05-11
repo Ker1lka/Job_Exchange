@@ -6,7 +6,6 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -20,14 +19,12 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class Users implements UserDetails{
+public class Users implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Size(min = 3, max = 50, message = "Ім'я користувача у системі повинно бути більшим ніж 3, але менше ніж 50 символів")
     private String username;
-    @Size(min = 3, message = "Ім'я користувача у системі повинно бути більшим ніж 3 символів")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)

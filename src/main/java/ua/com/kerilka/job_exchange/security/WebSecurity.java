@@ -30,12 +30,10 @@ public class WebSecurity {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/vacancies/apply", "/thanks", "/profile/my").hasAuthority("ROLE_user")
-                                .requestMatchers("/vacancy/create", "/companies/create", "/vacancies/my", "/vacancies/{id}/applications").hasAuthority("ROLE_company")
 
                                 .requestMatchers("/", "/login", "/registration", "/static/**", "/favorites", "/addFavorite",
-                                        "/deleteFavorite", "/profiles/list", "/registration-company")
-                                .permitAll()
+                                        "/deleteFavorite", "/profiles/list").permitAll()
+                                .requestMatchers("/vacancies/apply", "/thanks").hasAuthority("ROLE_user")
                                 .requestMatchers("/vacancy/{id}").permitAll()
                                 .requestMatchers("/manager").hasAuthority("ROLE_manager")
                                 .requestMatchers("/admin").hasAuthority("ROLE_admin")

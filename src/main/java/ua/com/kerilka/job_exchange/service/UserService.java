@@ -1,6 +1,8 @@
 package ua.com.kerilka.job_exchange.service;
 
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,6 +25,10 @@ public class UserService implements UserDetailsService {
         }
 
         return user;
+    }
+
+    public Users findUserByUsername(String username) {
+        return usersRepository.findByUsername(username);
     }
 
     public boolean getUserFromDB(String username) {

@@ -33,4 +33,8 @@ public class ProfileHasVacancyService {
         // 3. Зберігаємо в базу
         phvRepository.save(application);
     }
+
+    public List<ProfileHasVacancy> findAllProfilesHasVacancies() {
+        return phvRepository.findAll();
+    }
 }

@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h2>Admin</h2>
+<#import "admin/templ-admin.ftl" as p>
+<@p.pages>
 
-</body>
-</html>
+
+</@p.pages>

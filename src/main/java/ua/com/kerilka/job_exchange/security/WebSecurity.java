@@ -32,12 +32,13 @@ public class WebSecurity {
                         authorizeRequests
 
                                 .requestMatchers("/", "/login", "/registration", "/static/**", "/favorites", "/addFavorite",
-                                        "/deleteFavorite", "/profiles/list").permitAll()
+                                        "/deleteFavorite", "/profiles/list","/about-us").permitAll()
                                 .requestMatchers("/vacancies/apply", "/thanks", "/vacancies/apply",
                                         "/vacancies/create", "/companies/create").hasAuthority("ROLE_user")
                                 .requestMatchers("/vacancy/{id}").permitAll()
-                                .requestMatchers("/manager").hasAuthority("ROLE_manager")
-                                .requestMatchers("/admin").hasAuthority("ROLE_admin")
+                                .requestMatchers("/manager", "/vacancy-manager", "/updateVacancy", "/deleteVacancy", "/company-manager",
+                                        "/updateCompany", "/deleteCompany", "/phv-manager", "/updatePHV", "/deletePHV").hasAuthority("ROLE_manager")
+                                .requestMatchers("/admin", "/roles-admin", "/users-admin", "/about-us-admin").hasAuthority("ROLE_admin")
 
                                 .anyRequest().authenticated()
                 )

@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h2> Manager </h2>
+<#import "manager/templ-manager.ftl" as p>
+<@p.pages>
 
-</body>
-</html>
+</@p.pages>

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import ua.com.kerilka.job_exchange.entity.Users;
 import ua.com.kerilka.job_exchange.repository.UserRepository;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
@@ -36,4 +38,10 @@ public class UserService implements UserDetailsService {
     public Users saveNewUser(Users user) {
         return usersRepository.save(user);
     }
+    @Cacheable(cacheNames = "users")
+    public List<Users> findAllUsers() {
+        return usersRepository.findAll();
+    }
+    @Cacheable(cacheNames = "roles")
+    public List<Users> findAllRoles() {return usersRepository.findAll();}
 }

@@ -13,7 +13,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 
@@ -30,6 +29,16 @@ public class Users implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Roles> roles =  new HashSet<>();
 
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
@@ -44,6 +53,8 @@ public class Users implements UserDetails {
     public boolean isAccountNonLocked() {
         return UserDetails.super.isAccountNonLocked();
     }
+
+
 
     @Override
     public boolean isCredentialsNonExpired() {

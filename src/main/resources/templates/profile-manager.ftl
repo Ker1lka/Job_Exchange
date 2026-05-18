@@ -9,6 +9,7 @@
                     <th style="width: 5%">ID</th>
                     <th>Ім'я</th>
                     <th>Прізвище</th>
+                    <th>По батькові</th>
                     <th>Адреса</th>
                     <th>Телефон</th>
                     <th>Email</th>
@@ -21,9 +22,10 @@
                 <#list profiles as profile>
                 <tr>
                     <form method="post" action="/updateProfile">
-                        <td><input type="text" name="id" class="form-control-plaintext form-control-sm fw-bold px-2" value="${profile.id!""}" readonly></td>
+                        <td><input type="text" name="id" class="form-control form-control-sm fw-bold px-2" value="${profile.id!""}"></td>
                         <td><input type="text" name="firstName" class="form-control form-control-sm" value="${profile.firstName!""}"></td>
                         <td><input type="text" name="lastName" class="form-control form-control-sm" value="${profile.lastName!""}"></td>
+                        <td><input type="text" name="middleName" class="form-control form-control-sm" value="${profile.middleName!""}"></td>
                         <td><input type="text" name="address" class="form-control form-control-sm" value="${profile.address!""}"></td>
                         <td><input type="text" name="phone" class="form-control form-control-sm" value="${profile.phone!""}"></td>
                         <td><input type="email" name="email" class="form-control form-control-sm" value="${profile.email!""}"></td>

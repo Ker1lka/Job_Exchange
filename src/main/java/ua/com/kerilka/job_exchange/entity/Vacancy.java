@@ -33,6 +33,6 @@ public class Vacancy {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToMany(mappedBy = "vacancy")
+    @OneToMany(mappedBy = "vacancy", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProfileHasVacancy> profileHasVacancies = new ArrayList<>();
 }

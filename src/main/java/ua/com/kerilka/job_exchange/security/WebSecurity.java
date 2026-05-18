@@ -33,12 +33,11 @@ public class WebSecurity {
 
                                 .requestMatchers("/", "/login", "/registration", "/static/**", "/favorites", "/addFavorite",
                                         "/deleteFavorite", "/profiles/list","/about-us").permitAll()
-                                .requestMatchers("/vacancies/apply", "/thanks", "/vacancies/apply",
-                                        "/vacancies/create", "/companies/create").hasAuthority("ROLE_user")
+                                .requestMatchers("/vacancies/apply", "/thanks", "/vacancy/create","/companies/create").hasAuthority("ROLE_user")
                                 .requestMatchers("/vacancy/{id}").permitAll()
                                 .requestMatchers("/manager", "/vacancy-manager", "/updateVacancy", "/deleteVacancy", "/company-manager",
-                                        "/updateCompany", "/deleteCompany", "/phv-manager", "/updatePHV", "/deletePHV").hasAuthority("ROLE_manager")
-                                .requestMatchers("/admin", "/roles-admin", "/users-admin", "/about-us-admin").hasAuthority("ROLE_admin")
+                                        "/updateCompany", "/deleteCompany", "/phv-manager", "/updatePHV", "/deletePHV", "/profile-manager", "/updateProfile", "/deleteProfile").hasAuthority("ROLE_manager")
+                                .requestMatchers("/admin", "/roles-admin", "/users-admin", "/about-us-admin","/deleteUser", "/updateUser", "/updateRole", "/deleteRole").hasAuthority("ROLE_admin")
 
                                 .anyRequest().authenticated()
                 )
@@ -51,7 +50,6 @@ public class WebSecurity {
                         .logoutSuccessUrl("/")
                         .permitAll()
                 );
-
 
         return http.build();
     }

@@ -2,8 +2,7 @@
 <@p.pages>
     <div class="container-fluid mt-4">
         <div class="row">
-            <!-- Таблиця користувачів -->
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="card shadow-sm border-0">
                     <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
                         <h5 class="mb-0"><i class="bi bi-people-fill me-2"></i>Управління користувачами</h5>
@@ -52,34 +51,6 @@
                         </#if>
                         </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Форма додавання -->
-        <div class="col-lg-4">
-            <div class="card shadow-sm border-primary">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0"><i class="bi bi-person-plus-fill me-2"></i>Новий користувач</h5>
-                </div>
-                <div class="card-body">
-                    <form method="post" action="/addUser">
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Username</label>
-                            <input type="text" name="user" class="form-control shadow-sm" placeholder="Логін..." required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">Password</label>
-                            <input type="password" name="pass" class="form-control shadow-sm" placeholder="Пароль..." required>
-                        </div>
-                        <button type="submit" class="btn btn-success w-100 shadow-sm">
-                            <i class="bi bi-check-circle me-2"></i>Створити акаунт
-                        </button>
-                    </form>
-                    <div class="alert alert-info mt-4 p-2 small">
-                        <i class="bi bi-info-circle me-2"></i>
-                        При додаванні нового користувача пароль буде автоматично захешовано (якщо це налаштовано в сервісі).
                     </div>
                 </div>
             </div>

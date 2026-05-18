@@ -1,6 +1,5 @@
 <#import "client/temp-client.ftl" as p>
 <@p.pages>
-<#-- Hero Section -->
     <div class="bg-primary text-white py-5 mb-5 shadow-sm">
         <div class="container text-center">
             <h1 class="display-4 fw-bold">Про наш проект</h1>

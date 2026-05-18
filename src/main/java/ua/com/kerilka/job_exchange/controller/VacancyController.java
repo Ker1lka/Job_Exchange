@@ -15,8 +15,6 @@ import java.security.Principal;
 @Controller
 @RequiredArgsConstructor
 public class VacancyController {
-
-    private final ProfileHasVacancyService profileHasVacancyService;
     private final ProfilesService profileService;
     private final VacancyService vacancyService;
     private final CompanyService companyService;
@@ -43,30 +41,25 @@ public class VacancyController {
     }
     @GetMapping("/thanks")
     public String showSuccessPage() {
-        return "thanks"; // Назва файлу .ftl
+        return "thanks";
     }
 
 
     @PostMapping("/vacancies/create")
     public String createVacancy(@ModelAttribute Vacancy vacancy) {
-        // Spring автоматично створює об'єкт Vacancy з даних форми
         vacancyService.save(vacancy);
 
-        // Після збереження перенаправляємо на список всіх вакансій
         return "redirect:/";
     }
     @PostMapping("/vacancies/apply")
     public String applyForVacancy(@RequestParam("vacancyId") Long vacancyId,
                                   Principal principal) {
 
-        // 1. Отримуємо дані про поточного кандидата
         Users currentUser = userService.findUserByUsername(principal.getName());
         Profiles currentProfile = profileService.findByUser(currentUser);
 
-        // 2. Викликаємо метод нашого профільного сервісу
         phvService.apply(currentProfile, vacancyId);
 
-        // 3. Редірект на GetMapping "/thanks"
         return "redirect:/thanks";
     }
 }

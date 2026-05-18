@@ -15,26 +15,24 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProfileHasVacancyService {
     private final ProfileHasVacancyRepository phvRepository;
-    private final VacancyRepository vacancyRepository; // Додаємо, щоб знайти об'єкт вакансії
+    private final VacancyRepository vacancyRepository;
 
     public void apply(Profiles profile, Long vacancyId) {
-        // 1. Знаходимо вакансію за ID, який прийшов з форми
         Vacancy vacancy = vacancyRepository.findById(vacancyId)
                 .orElseThrow(() -> new RuntimeException("Vacancy not found with id: " + vacancyId));
 
-        // 2. Створюємо новий запис для таблиці зв'язку
         ProfileHasVacancy application = new ProfileHasVacancy();
         application.setProfile(profile);
         application.setVacancy(vacancy);
-
-        // Можна додати дату відгуку, якщо є таке поле
-        // application.setAppliedAt(LocalDateTime.now());
-
-        // 3. Зберігаємо в базу
         phvRepository.save(application);
     }
-
     public List<ProfileHasVacancy> findAllProfilesHasVacancies() {
         return phvRepository.findAll();
+    }
+    public void updatePHV(ProfileHasVacancy phv) {
+        phvRepository.save(phv);
+    }
+    public void deletePHVById(Long id){
+        phvRepository.deleteById(id);
     }
 }

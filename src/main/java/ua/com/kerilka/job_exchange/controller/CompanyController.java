@@ -18,11 +18,10 @@ public class CompanyController {
         return "company-create";
     }
 
-    // Обробка даних з форми
     @PostMapping("/companies/create")
     public String createCompany(@ModelAttribute Company company) {
         companyService.save(company);
-        // Після створення повертаємо користувача до форми створення вакансії
+
         return "redirect:/vacancy/create";
     }
 }

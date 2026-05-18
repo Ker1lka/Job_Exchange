@@ -30,7 +30,7 @@ public class ProfileController {
             Long userId = userService.findUserByUsername(username).getId();
             return "redirect:/profiles/" + userId;
         }
-        return "redirect:/login"; // Redirect to login if not authenticated
+        return "redirect:/login";
     }
 
     @GetMapping("/profiles/{id}")
@@ -39,13 +39,14 @@ public class ProfileController {
         return "profiles-view";
     }
 
-    @GetMapping("/manager")
-    public String getPageManager() {
-        return "manager";
-    }
 
     @GetMapping("/admin")
     public String getPageAdmin(){
         return "admin";
+    }
+
+    @GetMapping("/manager")
+    public String getPageManager() {
+        return "manager";
     }
 }

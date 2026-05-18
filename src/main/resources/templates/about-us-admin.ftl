@@ -14,7 +14,6 @@
             </div>
             <div class="card-body p-4">
                 <form action="/updateAboutUs" method="post">
-                    <#-- Поле для заголовку -->
                     <div class="mb-4">
                         <label class="form-label fw-bold text-secondary">
                             <i class="bi bi-type-h1 me-2"></i>Головний заголовок сторінки
@@ -23,8 +22,6 @@
                                placeholder="Введіть короткий заголовок..." value="${(aboutTitle)!''}">
                         <div class="form-text">Цей текст відображається у синій секції зверху.</div>
                     </div>
-
-                    <#-- Поле для основного тексту -->
                     <div class="mb-4">
                         <label class="form-label fw-bold text-secondary">
                             <i class="bi bi-justify-left me-2"></i>Основний опис проекту
@@ -33,8 +30,6 @@
                                   placeholder="Напишіть детальну історію проекту...">${(aboutText)!''}</textarea>
                         <div class="form-text">Використовуйте зрозумілу та приязну мову.</div>
                     </div>
-
-                    <#-- Кнопки управління -->
                     <div class="d-flex justify-content-between align-items-center mt-5 border-top pt-4">
                         <a href="/about-us" target="_blank" class="btn btn-outline-secondary">
                             <i class="bi bi-eye me-2"></i>Попередній перегляд

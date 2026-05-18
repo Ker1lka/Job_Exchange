@@ -15,9 +15,13 @@
                         <form method="post" action="/updateVacancy">
                             <input type="hidden" name="id" value="${vacancy.id}">
                             <div class="row g-2 align-items-end">
-                                <div class="col-md-6">
+                                <div class="col-md-1">
+                                    <label class="small text-muted mb-1">Id</label>
+                                    <input name="vacancyId" type="text" class="form-control bg-light" value="${(vacancy.id)!""}">
+                                </div>
+                                <div class="col-md-5">
                                     <label class="small text-muted mb-1">Компанія</label>
-                                    <input type="text" class="form-control bg-light" value="${(vacancy.company.name)!""}" readonly>
+                                    <span type="text" class="form-control bg-light">${(vacancy.company.name)!""}</span>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="small text-muted mb-1">Позиція</label>
@@ -28,7 +32,7 @@
                                     <textarea name="requirements" class="form-control" rows="2">${vacancy.requirements!""}</textarea>
                                 </div>
                                 <div class="col-md-4 mt-3">
-                                    <label class="small text-muted mb-1">Зарплата ($)</label>
+                                    <label class="small text-muted mb-1">Зарплата (₴)</label>
                                     <input type="number" name="salary" class="form-control fw-bold text-success" value="${vacancy.salary!""}">
                                 </div>
                                 <div class="col-md-8 mt-3 d-flex gap-2 justify-content-end">

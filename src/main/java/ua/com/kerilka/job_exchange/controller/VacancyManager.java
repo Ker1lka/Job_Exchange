@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.kerilka.job_exchange.entity.Company;
+import ua.com.kerilka.job_exchange.entity.ProfileHasVacancy;
+import ua.com.kerilka.job_exchange.entity.Profiles;
+import ua.com.kerilka.job_exchange.entity.Vacancy;
+import ua.com.kerilka.job_exchange.service.CompanyService;
 import ua.com.kerilka.job_exchange.service.ProfileHasVacancyService;
 import ua.com.kerilka.job_exchange.service.VacancyService;
 
@@ -20,11 +24,36 @@ public class VacancyManager {
 
     @GetMapping("/vacancy-manager")
     public String getVacancyPageForManager(Model model){
-
         model.addAttribute("vacancies", vacancyService.findAllVacancies());
 
         return  "vacancy-manager";
     }
+
+    @PostMapping("/updateVacancy")
+    public String updateVacancyFromManager(Model model,
+                                           @RequestParam(name = "id") Long id,
+                                           @RequestParam(name = "position") String position,
+                                           @RequestParam(name = "salary") Double salary,
+                                           @RequestParam(name = "requirements") String requirements){
+        Vacancy vacancy = new Vacancy();
+        vacancy.setId(id);
+        vacancy.setPosition(position);
+        vacancy.setSalary(salary);
+        vacancy.setRequirements(requirements);
+
+        vacancyService.updateVacancy(vacancy);
+
+        return "redirect:/vacancy-manager";
+    }
+
+    @PostMapping("/deleteVacancy")
+    public String deleteVacancyFromManager(Model model,
+                                           @RequestParam(name = "id") Long id){
+        vacancyService.deleteVacancyById(id);
+
+        return "redirect:/vacancy-manager";
+    }
+
 
     @GetMapping("/phv-manager")
     public String getPHVPageForManager(Model model){
@@ -33,19 +62,29 @@ public class VacancyManager {
         return "phv-manager";
     }
 
-    @PostMapping("/updateVacancy")
-    public String updateCompanyFromManager(Model model,
-                                           @RequestParam(name = "id") Long id,
-                                           @RequestParam(name = "name") String name,
-                                           @RequestParam(name = "description") String description,
-                                           @RequestParam(name = "contactInfo") String contactInfo,
-                                           @RequestParam(name = "address") String address){
 
+    @PostMapping("/updatePHV")
+    public String updatePHVFromManager(Model model,
+                                       @RequestParam(name = "id") Long id,
+                                       @RequestParam(name = "status") String status,
+                                       @RequestParam(name = "profileId") Profiles profileId,
+                                       @RequestParam(name = "vacancyId")Vacancy vacancyId){
+        ProfileHasVacancy phv = new ProfileHasVacancy();
+        phv.setId(id);
+        phv.setProfile(profileId);
+        phv.setVacancy(vacancyId);
+        phv.setStatus(status);
 
+        phvService.updatePHV(phv);
 
-        return "redirect:/company-manager";
+        return "redirect:/phv-manager";
     }
 
+    @PostMapping("/deletePHV")
+    public String deletePHVFromManager(Model model,
+                                           @RequestParam(name = "id") Long id){
+        phvService.deletePHVById(id);
 
-
+        return "redirect:/phv-manager";
+    }
 }

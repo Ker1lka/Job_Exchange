@@ -7,18 +7,18 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
-                                <h2 class="text-primary mb-1">${(vacancy.position!'')}</h2>
-                                <p class="text-muted"><i class="bi bi-building me-2"></i>${(vacancy.company.name!'')}</p>
+                                <h2 class="text-primary mb-1">${vacancy.position!""}</h2>
+                                <p class="text-muted"><i class="bi bi-building me-2"></i>${vacancy.company.name!""}</p>
                             </div>
-                            <span class="badge bg-success fs-6">${(vacancy.salary!'')} грн.</span>
+                            <span class="badge bg-success fs-6">${vacancy.salary!""} грн.</span>
                         </div>
                         <hr>
                         <h5 class="fw-bold mt-4">Опис вакансії</h5>
                         <div class="mt-3">
-                            ${(vacancy.company.description!'')}
+                            ${vacancy.company.description!""}
                         </div>
                         <h5 class="fw-bold mt-4">Вимоги</h5>
-                        <p>${(vacancy.requirements!'')}</p>
+                        <p>${vacancy.requirements!""}</p>
                     </div>
                 </div>
             </div>
@@ -29,11 +29,11 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <i class="bi bi-clock me-2 text-primary"></i>
-                            <b>Умови:</b> ${(vacancy.workingConditions!'')}
+                            <b>Умови:</b> ${vacancy.workingConditions!""}
                         </li>
                         <li class="list-group-item">
                             <i class="bi bi-geo-alt me-2 text-primary"></i>
-                            <b>Локація:</b> ${(vacancy.location!'')}
+                            <b>Локація:</b> ${vacancy.location!""}
                         </li>
                     </ul>
                     <div class="mt-4">

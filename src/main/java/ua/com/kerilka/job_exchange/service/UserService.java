@@ -22,26 +22,23 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Users user = usersRepository.findByUsername(username);
-
         if (user == null) throw new UsernameNotFoundException(username);
         return user;}
-
-    @Cacheable(cacheNames = "user", key = "#username")
     public Users findUserByUsername(String username) {
         return usersRepository.findByUsername(username);
     }
-
     public boolean getUserFromDB(String username) {
         return (usersRepository.findByUsername(username) != null);
     }
-
     public Users saveNewUser(Users user) {
         return usersRepository.save(user);
     }
-    @Cacheable(cacheNames = "users")
     public List<Users> findAllUsers() {
         return usersRepository.findAll();
     }
-    @Cacheable(cacheNames = "roles")
     public List<Users> findAllRoles() {return usersRepository.findAll();}
+    public void addRoleToUser(Long userId, Long roleId){usersRepository.addRoleToUser(userId, roleId);}
+    public void deteleRoleFromUser(Long userId, Long roleId){usersRepository.deleteRoleFromUser(userId, roleId);}
+    public void updateUser(Users user) {usersRepository.save(user);}
+    public void deleteUserById(Long id){usersRepository.deleteById(id);}
 }

@@ -3,59 +3,71 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-8">
-                <div class="card shadow-sm mb-4">
+                <div class="card shadow-sm">
                     <div class="card-header bg-primary text-white">Список ролей користувачів</div>
-                    <table class="table table-striped mb-0">
+                    <table class="table table-striped">
                         <thead>
-                        <tr><th>User ID</th><th>Role ID</th><th>Дії</th></tr>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Info About Roles</th>
+                            <th>Role</th>
+                            <th>Do</th>
+                        </tr>
                         </thead>
                         <tbody>
-                        <#if roles?? && users??>
-                            <#list roles as role>
-                                <#list users as my_user>
-                                    <tr>
-                                        <form method="post" action="/updateRole">
-                                            <td><input type="text" name="userId" class="form-control" value="${my_user.id!""}"></td>
-                                            <td><input type="text" name="roleId" class="form-control" value="${role.id!""}"></td>
-                                            <td>
-                                                <button type="submit" class="btn btn-warning btn-sm">Змінити</button>
+                        <#if profiles??>
+                            <#list profiles as profile>
+                                <tr>
+                                    <td>
+                                        <div class="fw-bold text-dark">${profile.user.username!""}</div>
+                                        <div class="small text-muted">ID: ${profile.user.id}</div>
+                                    </td>
+                                    <td>
+                                        <#if profile.user.roles?? && profile.user.roles?size gt 0>
+                                            <#list profile.user.roles as role>
+                                                <span class="badge rounded-pill bg-info text-dark mb-1">
+                            ${role.name}
+                        </span>
+                                            </#list>
+                                        <#else>
+                                            <span class="text-muted small">Немає ролей</span>
+                                        </#if>
+                                    </td>
+                                    <td>
+                                        <form method="post" action="/updateRole"
+                                              class="d-flex align-items-center gap-2">
+                                            <input type="hidden" name="userId" value="${profile.user.id}">
+                                            <select name="roleId" class="form-select form-select-sm"
+                                                    style="max-width: 120px;">
+                                                <option value="1">User</option>
+                                                <option value="2">Manager</option>
+                                                <option value="3">Admin</option>
+                                            </select>
+                                            <button type="submit" class="btn btn-warning btn-sm shadow-sm">
+                                                <i class="bi bi-plus-circle">Додати</i>
+                                            </button>
                                         </form>
-                                        <form method="post" action="/deleteRole" class="d-inline">
-                                            <input type="hidden" name="id" value="${role.id}">
-                                            <button type="submit" class="btn btn-danger btn-sm">Видалити</button>
+                                    </td>
+                                    <td>
+                                        <form method="post" action="/deleteRole"
+                                              class="d-flex align-items-center gap-2">
+                                            <input type="hidden" name="userId" value="${profile.user.id}">
+                                            <select name="roleId" class="form-select form-select-sm"
+                                                    style="max-width: 120px;">
+                                                <#list profile.user.roles as role>
+                                                    <option value="${role.id}">${role.name}</option>
+                                                </#list>
+                                            </select>
+                                            <button type="submit" class="btn btn-danger btn-sm shadow-sm">
+                                                <i class="bi bi-trash">Видалити</i>
+                                            </button>
                                         </form>
-                                        </td>
-                                    </tr>
-                                </#list>
+                                    </td>
+                                </tr>
                             </#list>
                         </#if>
                         </tbody>
                     </table>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card border-primary mb-3 shadow-sm">
-                    <div class="card-header">Додати роль користувачу</div>
-                    <div class="card-body">
-                        <form method="post" action="/addRoleToUser">
-                            <div class="mb-3">
-                                <label class="form-label">User ID:</label>
-                                <input type="text" name="userId" class="form-control shadow-sm">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Role ID:</label>
-                                <input type="text" name="roleId" class="form-control shadow-sm">
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100 mb-3">Призначити роль</button>
-                        </form>
-                        <table class="table table-sm small table-bordered">
-                            <tr class="table-light text-center"><th>Роль</th><th>ID</th></tr>
-                            <tr><td>ROLE_user</td><td class="text-center">1</td></tr>
-                            <tr><td>ROLE_manager</td><td class="text-center">2</td></tr>
-                            <tr><td>ROLE_admin</td><td class="text-center">3</td></tr>
-                        </table>
-                    </div>
                 </div>
             </div>
         </div>

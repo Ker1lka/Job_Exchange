@@ -20,6 +20,11 @@ public class UserAdmin {
     private final UserService userService;
     private final CandidatesService candidateService;
 
+    @GetMapping("/about-us-admin")
+    public String aboutUsAdmin() {
+        return "about-us-admin";
+    }
+
     @GetMapping("/users-admin")
     public String getUserForAdmin(Model model){
         model.addAttribute("users", userService.findAllUsers());

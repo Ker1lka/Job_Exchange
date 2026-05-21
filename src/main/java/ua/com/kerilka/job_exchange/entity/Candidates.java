@@ -13,37 +13,45 @@ import java.util.List;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "profiles")
+@Table(name = "candidates")
 public class Candidates {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //Registration info
     private String firstName;
     private String lastName;
     private String middleName;
     private int age;
     private String contactInfo;
     private String address;
+    private String familyStatus;
+    private String housingConditions;
     private String avatarName;
+
+    //Profession
+    private String profession;
+    private String lastJobPlace;
+    private String lastJobPosition;
+    private String leavingReason;
+
+    //Education
+    private String institution;
+    private String specialization;
+    private String degree;
+    private String educationYears;
+
+    //Other
+    private String jobRequirements;
+    private boolean isArchived;
 
     @OneToOne
     @MapsId
     @JoinColumn(name = "id")
     private Users user;
 
-    @OneToMany(mappedBy = "profile")
-    private List<Education> educations = new ArrayList<>();
+    @OneToMany(mappedBy = "candidate")
+    public List<JobApplication> jobApplications = new ArrayList<>();
 
-    @OneToMany(mappedBy = "profile")
-    private List<Experience> experiences = new ArrayList<>();
 
-    @OneToMany(mappedBy = "profile")
-    private List<ProfileHasProfession> profileHasProfessions = new ArrayList<>();
-
-    @OneToMany(mappedBy = "profile")
-    private List<ProfileHasVacancy> profileHasVacancies = new ArrayList<>();
-
-    @OneToOne(mappedBy = "profile")
-    private JobRequirements jobRequirements;
 }

@@ -1,4 +1,4 @@
-<#import "client/temp-client.ftl" as p>
+<#import "candidate/templ-candidate.ftl" as p>
 <@p.pages>
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-4">

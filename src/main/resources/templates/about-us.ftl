@@ -1,4 +1,8 @@
-<#import "client/temp-client.ftl" as p>
+<#if userRole?? && userRole == "ROLE_company">
+    <#import "company/templ-company.ftl" as p>
+<#else>
+    <#import "candidate/templ-candidate.ftl" as p>
+</#if>
 <@p.pages>
     <div class="bg-primary text-white py-5 mb-5 shadow-sm">
         <div class="container text-center">

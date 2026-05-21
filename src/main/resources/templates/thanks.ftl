@@ -1,4 +1,4 @@
-<#import "client/temp-client.ftl" as p>
+<#import "candidate/templ-candidate.ftl" as p>
 <@p.pages>
     <div class="container mt-5">
         <div class="row justify-content-center">

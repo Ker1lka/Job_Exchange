@@ -5,11 +5,10 @@ import org.springframework.stereotype.Repository;
 import ua.com.kerilka.job_exchange.entity.Candidates;
 import ua.com.kerilka.job_exchange.entity.Users;
 
+import java.util.Optional;
+
 @Repository
 public interface CandidatesRepository extends JpaRepository<Candidates, Long> {
-
-    Candidates findByFirstName(String firstName);
-
-    Candidates findByUser(Users user);
+    Optional<Candidates> findByUser(Users user);
 }
 

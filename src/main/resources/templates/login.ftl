@@ -1,33 +1,31 @@
-<#import "client/temp-client.ftl" as p>
-<@p.pages>
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-5">
-                <div class="card shadow border-0 rounded-4">
-                    <div class="card-body p-5">
-                        <h2 class="fw-bold text-center mb-4">Вхід у систему</h2>
-                        <form method="post" action="/login">
-                            <div class="mb-3">
-                                <label class="form-label">Логін (Username)</label>
-                                <input type="text" name="username" class="form-control" placeholder="Введіть логін" required>
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label">Пароль</label>
-                                <input type="password" name="password" class="form-control" placeholder="••••••••" required>
-                            </div>
-                            <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-primary btn-lg">Увійти</button>
-                            </div>
-                        </form>
-                        <div class="mt-4 text-center">
-                            <p class="text-muted small mb-2">Ще не маєте акаунту?</p>
-                            <div class="d-grid gap-2">
-                                <a href="/registration" class="btn btn-outline-primary">Зареєструватись як Кандидат</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Вхід в систему</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card shadow border-0 p-4" style="width: 400px;">
+        <h3 class="fw-bold text-center mb-4">Авторизація</h3>
+
+        <form method="post" action="/login">
+            <div class="mb-3">
+                <label class="form-label">Логін (Email)</label>
+                <input type="text" name="username" class="form-control" required>
             </div>
+            <div class="mb-3">
+                <label class="form-label">Пароль</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 fw-bold">Увійти</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <a href="/" class="small text-muted">← На головну</a>
         </div>
     </div>
-</@p.pages>
+</div>
+</body>
+</html>

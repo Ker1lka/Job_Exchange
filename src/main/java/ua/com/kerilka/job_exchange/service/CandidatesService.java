@@ -16,21 +16,22 @@ public class CandidatesService {
     public List<Candidates> findAllCandidates() {
         return candidatesRepository.findAll();
     }
-
-    public Candidates findByNameCandidate(String firstName) {
-        return candidatesRepository.findByFirstName(firstName);
+    public Candidates findByUser(Users user) {
+        return candidatesRepository.findByUser(user)
+                .orElseGet(() -> {
+                    // Якщо об'єкта кандидата в базі ще немає, створюємо пустий з цим ID
+                    Candidates newCandidate = new Candidates();
+                    newCandidate.setUser(user);
+                    newCandidate.setId(user.getId()); // тому що @MapsId
+                    return candidatesRepository.save(newCandidate);
+                });
     }
-
-    public Candidates findByIdCandidate(Long id) {
+    public Candidates findById(Long id) {
         return candidatesRepository.findById(id).get();
     }
 
     public void save(Candidates candidate) {
         candidatesRepository.save(candidate);
-    }
-
-    public Candidates findByUser(Users user) {
-        return candidatesRepository.findByUser(user);
     }
 
     public void updateCandidate(Candidates candidate) {

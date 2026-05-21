@@ -30,20 +30,29 @@ public class WebSecurity {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
+                                //All Users
+                                .requestMatchers("/", "/about-us", "/login", "/registration/candidate", "/registration/company").permitAll()
 
-                                .requestMatchers("/", "/login", "/registration", "/static/**", "/favorites", "/addFavorite",
-                                        "/deleteFavorite", "/candidates/list","/about-us").permitAll()
-                                .requestMatchers("/vacancies/apply", "/thanks", "/vacancy/create","/companies/create").hasAuthority("ROLE_user")
-                                .requestMatchers("/vacancy/{id}").permitAll()
-                                .requestMatchers("/manager", "/vacancy-manager", "/updateVacancy", "/deleteVacancy", "/company-manager",
-                                        "/updateCompany", "/deleteCompany", "/phv-manager", "/updatePHV", "/deletePHV", "/candidate-manager", "/updateCandidate", "/deleteCandidate").hasAuthority("ROLE_manager")
-                                .requestMatchers("/admin", "/roles-admin", "/users-admin", "/about-us-admin","/deleteUser", "/updateUser", "/updateRole", "/deleteRole").hasAuthority("ROLE_admin")
+                                //Authorized
+                                .requestMatchers("/success").authenticated()
+
+                                //Candidates
+                                .requestMatchers("/thanks", "/profile/candidate/**", "/candidate/**").hasAuthority("ROLE_candidate")
+
+                                //Company
+                                .requestMatchers("/profile/company/**", "/company/**").hasAuthority("ROLE_company")
+
+                                //Manager
+                                .requestMatchers("/manager").hasAuthority("ROLE_manager")
+
+                                //Admin
+                                .requestMatchers("/admin").hasAuthority("ROLE_admin")
 
                                 .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/success", true)
                         .permitAll()
                 )
                 .logout(logout -> logout

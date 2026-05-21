@@ -15,8 +15,6 @@ public class CandidateManager {
 
     private final CandidatesService candidatesService;
 
-
-
     @GetMapping("/candidate-manager")
     public String getCandidatesPageForManager(Model model){
 

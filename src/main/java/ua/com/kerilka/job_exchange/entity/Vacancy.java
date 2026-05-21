@@ -19,16 +19,15 @@ public class Vacancy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String position;
-    private String workingConditions;
     private Double salary;
     private String requirements;
-    private boolean housingProvided;
-    private boolean isArchived;
+    private String conditions;
+    private boolean isClosed;
 
     @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToMany(mappedBy = "vacancy", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProfileHasVacancy> profileHasVacancies = new ArrayList<>();
+    @OneToMany(mappedBy = "vacancy")
+    public List<JobApplication> jobApplications = new ArrayList<>();
 }

@@ -2,6 +2,7 @@ package ua.com.kerilka.job_exchange.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ua.com.kerilka.job_exchange.entity.Company;
 import ua.com.kerilka.job_exchange.entity.Vacancy;
 import ua.com.kerilka.job_exchange.repository.ProfileHasVacancyRepository;
 import ua.com.kerilka.job_exchange.repository.VacancyRepository;
@@ -12,11 +13,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VacancyService {
     private final VacancyRepository vacancyRepository;
-    private final ProfileHasVacancyRepository phvRepository;
 
     public List<Vacancy> findAllVacancies() {return vacancyRepository.findAll();}
     public Vacancy findByIdVacancy(Long id) {return vacancyRepository.findById(id).get();}
+    public List<Vacancy> findByCompany(Company company){return vacancyRepository.findByCompany(company);}
+    public List<Vacancy> findActiveVacancies(){return vacancyRepository.findByIsClosedFalse();}
+
     public void save(Vacancy vacancy) {vacancyRepository.save(vacancy);}
+
     public void updateVacancy(Vacancy vacancy) {vacancyRepository.save(vacancy);}
     public void deleteVacancyById(long id) {vacancyRepository.deleteById(id);}
 }

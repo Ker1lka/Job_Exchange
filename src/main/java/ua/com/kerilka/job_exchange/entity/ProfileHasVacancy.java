@@ -22,7 +22,7 @@ public class ProfileHasVacancy {
 
     @ManyToOne
     @JoinColumn(name = "profile_id")
-    private Profiles profile;
+    private Candidates profile;
 
     @ManyToOne
     @JoinColumn(name = "vacancy_id")

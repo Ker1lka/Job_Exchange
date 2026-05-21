@@ -12,7 +12,7 @@
                     <a class="nav-link active" href="/">Vacancies</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/profiles/list">Candidates</a>
+                    <a class="nav-link" href="/candidates/list">Candidates</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/about-us">About-us</a>

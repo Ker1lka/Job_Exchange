@@ -18,15 +18,12 @@ public class Experience {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String companyName;
     private String position;
     private String reasonForLeaving;
+    private int experienceTime = getTimeOfExperience();
     private LocalDate startDate;
     private LocalDate endDate;
 
-    @ManyToOne
-    @JoinColumn(name = "profile_id")
-    private Profiles profile;
 
     public int getTimeOfExperience() {
         if (startDate == null || endDate == null) {
@@ -34,4 +31,9 @@ public class Experience {
         }
         return Period.between(startDate, endDate).getYears();
     }
+
+
+    @ManyToOne
+    @JoinColumn(name = "profile_id")
+    private Candidates profile;
 }

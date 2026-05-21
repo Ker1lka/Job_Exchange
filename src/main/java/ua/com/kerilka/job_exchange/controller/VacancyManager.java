@@ -2,16 +2,13 @@ package ua.com.kerilka.job_exchange.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ua.com.kerilka.job_exchange.entity.Company;
 import ua.com.kerilka.job_exchange.entity.ProfileHasVacancy;
-import ua.com.kerilka.job_exchange.entity.Profiles;
+import ua.com.kerilka.job_exchange.entity.Candidates;
 import ua.com.kerilka.job_exchange.entity.Vacancy;
-import ua.com.kerilka.job_exchange.service.CompanyService;
 import ua.com.kerilka.job_exchange.service.ProfileHasVacancyService;
 import ua.com.kerilka.job_exchange.service.VacancyService;
 
@@ -67,7 +64,7 @@ public class VacancyManager {
     public String updatePHVFromManager(Model model,
                                        @RequestParam(name = "id") Long id,
                                        @RequestParam(name = "status") String status,
-                                       @RequestParam(name = "profileId") Profiles profileId,
+                                       @RequestParam(name = "profileId") Candidates profileId,
                                        @RequestParam(name = "vacancyId")Vacancy vacancyId){
         ProfileHasVacancy phv = new ProfileHasVacancy();
         phv.setId(id);

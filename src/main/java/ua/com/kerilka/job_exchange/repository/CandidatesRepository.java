@@ -12,3 +12,4 @@ public interface CandidatesRepository extends JpaRepository<Candidates, Long> {
 
     Candidates findByUser(Users user);
 }
+

@@ -1,13 +1,8 @@
 package ua.com.kerilka.job_exchange.service;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import ua.com.kerilka.job_exchange.entity.Profiles;
 import ua.com.kerilka.job_exchange.entity.Vacancy;
-import ua.com.kerilka.job_exchange.repository.CompanyRepository;
 import ua.com.kerilka.job_exchange.repository.ProfileHasVacancyRepository;
 import ua.com.kerilka.job_exchange.repository.VacancyRepository;
 

@@ -22,5 +22,5 @@ public class Education {
 
     @ManyToOne
     @JoinColumn(name = "profile_id")
-    private Profiles profile;
+    private Candidates profile;
 }

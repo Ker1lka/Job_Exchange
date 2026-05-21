@@ -3,7 +3,6 @@ package ua.com.kerilka.job_exchange.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "profiles")
-public class Profiles {
+public class Candidates {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,10 +23,10 @@ public class Profiles {
     private String lastName;
     private String middleName;
     private int age;
-    private String phone;
-    private String email;
+    private String contactInfo;
     private String address;
-    private String image;
+
+    private String urlAvatar;
 
     @OneToOne
     @MapsId

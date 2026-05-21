@@ -21,9 +21,5 @@ public class JobRequirements {
 
     @OneToOne
     @JoinColumn(name = "profile_id")
-    private Profiles profile;
-
-    @ManyToOne
-    @JoinColumn(name = "profession_id")
-    private Profession profession;
+    private Candidates profile;
 }

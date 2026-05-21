@@ -24,6 +24,11 @@ public class Company {
     private String contactInfo;
     private String address;
 
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "id")
+    private Users user;
+
     @OneToMany(mappedBy = "company")
     private List<Vacancy> vacancies = new ArrayList<>();
 }

@@ -22,7 +22,4 @@ public class Profession {
 
     @OneToMany(mappedBy = "profession")
     private List<ProfileHasProfession> profileHasProfessions = new ArrayList<>();
-
-    @OneToMany(mappedBy = "profession")
-    private List<JobRequirements> jobRequirements = new ArrayList<>();
 }

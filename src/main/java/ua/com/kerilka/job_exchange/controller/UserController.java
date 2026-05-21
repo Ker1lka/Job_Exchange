@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import ua.com.kerilka.job_exchange.entity.Profiles;
+import ua.com.kerilka.job_exchange.entity.Candidates;
 import ua.com.kerilka.job_exchange.entity.Roles;
 import ua.com.kerilka.job_exchange.entity.Users;
-import ua.com.kerilka.job_exchange.service.ProfilesService;
+import ua.com.kerilka.job_exchange.service.CandidatesService;
 import ua.com.kerilka.job_exchange.service.UserService;
 
 import java.util.Collections;
@@ -22,7 +22,7 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    private final ProfilesService profilesService;
+    private final CandidatesService candidatesService;
 
     @GetMapping("/login")
     public String login() {
@@ -33,7 +33,7 @@ public class UserController {
     public String registration(Model model,
                                @RequestParam(name = "message", defaultValue = " ") String message) {
         model.addAttribute("users", new Users());
-        model.addAttribute("profiles", new Profiles());
+        model.addAttribute("candidates", new Candidates());
         model.addAttribute("info", message);
         return "registration";
     }
@@ -41,7 +41,7 @@ public class UserController {
     @PostMapping("/registration")
     public String saveNewUserToDB(@Valid Users user,
                                   BindingResult bindingResult,
-                                  @Valid Profiles profile,
+                                  @Valid Candidates profile,
                                   BindingResult bindingResult2,
                                   RedirectAttributes redirectAttributes) {
         if (userService.getUserFromDB(user.getUsername())) {
@@ -56,7 +56,7 @@ public class UserController {
         userById.setRoles(Collections.singleton(new Roles(1L, "ROLE_user")));
         profile.setUser(userById);
 
-        profilesService.save(profile);
+        candidatesService.save(profile);
 
         return "redirect:/login";
     }

@@ -11,8 +11,7 @@
                     <th>Прізвище</th>
                     <th>По батькові</th>
                     <th>Адреса</th>
-                    <th>Телефон</th>
-                    <th>Email</th>
+                    <th>Контакт</th>
                     <th>Вік</th>
                     <th class="text-center">Дія</th>
                 </tr>
@@ -27,8 +26,7 @@
                         <td><input type="text" name="lastName" class="form-control form-control-sm" value="${candidate.lastName!""}"></td>
                         <td><input type="text" name="middleName" class="form-control form-control-sm" value="${candidate.middleName!""}"></td>
                         <td><input type="text" name="address" class="form-control form-control-sm" value="${candidate.address!""}"></td>
-                        <td><input type="text" name="phone" class="form-control form-control-sm" value="${candidate.phone!""}"></td>
-                        <td><input type="email" name="email" class="form-control form-control-sm" value="${candidate.email!""}"></td>
+                        <td><input type="text" name="contactInfo" class="form-control form-control-sm" value="${candidate.contactInfo!""}"></td>
                         <td><input type="number" name="age" class="form-control form-control-sm" value="${candidate.age!""}" style="width: 70px;"></td>
                         <td class="text-center">
                             <div class="btn-group">
@@ -48,3 +46,4 @@
     </div>
     </div>
 </@p.pages>
+

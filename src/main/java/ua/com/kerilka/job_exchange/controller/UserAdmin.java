@@ -1,22 +1,16 @@
 package ua.com.kerilka.job_exchange.controller;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import ua.com.kerilka.job_exchange.entity.Profiles;
 import ua.com.kerilka.job_exchange.entity.Roles;
 import ua.com.kerilka.job_exchange.entity.Users;
-import ua.com.kerilka.job_exchange.service.ProfilesService;
+import ua.com.kerilka.job_exchange.service.CandidatesService;
 import ua.com.kerilka.job_exchange.service.UserService;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,9 +18,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class UserAdmin {
     private final UserService userService;
-    private final ProfilesService profileService;
-
-
+    private final CandidatesService candidateService;
 
     @GetMapping("/users-admin")
     public String getUserForAdmin(Model model){
@@ -58,7 +50,7 @@ public class UserAdmin {
 
     @GetMapping("/roles-admin")
     public String getRolesForAdmin(Model model){
-        model.addAttribute("profiles", profileService.findAllProfiles());
+        model.addAttribute("candidates", candidateService.findAllCandidates());
 
 
         return "roles-admin";

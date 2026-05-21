@@ -15,12 +15,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <#if profiles??>
-                            <#list profiles as profile>
+                        <#if candidates??>
+                            <#list candidates as candidate>
                                 <tr>
                                     <td>
-                                        <div class="fw-bold text-dark">${profile.user.username!""}</div>
-                                        <div class="small text-muted">ID: ${profile.user.id}</div>
+                                        <div class="fw-bold text-dark">${candidate.user.username!""}</div>
+                                        <div class="small text-muted">ID: ${candidate.user.id}</div>
                                     </td>
                                     <td>
                                         <#if profile.user.roles?? && profile.user.roles?size gt 0>
@@ -36,7 +36,7 @@
                                     <td>
                                         <form method="post" action="/updateRole"
                                               class="d-flex align-items-center gap-2">
-                                            <input type="hidden" name="userId" value="${profile.user.id}">
+                                            <input type="hidden" name="userId" value="${candidate.user.id}">
                                             <select name="roleId" class="form-select form-select-sm"
                                                     style="max-width: 120px;">
                                                 <option value="1">User</option>
@@ -51,7 +51,7 @@
                                     <td>
                                         <form method="post" action="/deleteRole"
                                               class="d-flex align-items-center gap-2">
-                                            <input type="hidden" name="userId" value="${profile.user.id}">
+                                            <input type="hidden" name="userId" value="${candidate.user.id}">
                                             <select name="roleId" class="form-select form-select-sm"
                                                     style="max-width: 120px;">
                                                 <#list profile.user.roles as role>

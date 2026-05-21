@@ -20,7 +20,7 @@ public class ProfileHasProfession {
 
     @ManyToOne
     @JoinColumn(name = "profile_id")
-    private Profiles profile;
+    private Candidates profile;
 
     @ManyToOne
     @JoinColumn(name = "profession_id")

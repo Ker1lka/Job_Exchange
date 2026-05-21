@@ -1,62 +1,23 @@
 package ua.com.kerilka.job_exchange.controller;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import ua.com.kerilka.job_exchange.entity.Profiles;
-import ua.com.kerilka.job_exchange.service.ProfilesService;
 
-@Controller
-@RequiredArgsConstructor
+@org.springframework.stereotype.Controller
 public class ProfileManager {
 
-    private final ProfilesService profilesService;
-
-
-
     @GetMapping("/profile-manager")
-    public String getProfilesPageForManager(Model model){
-
-        model.addAttribute("profiles", profilesService.findAllProfiles());
-
-        return "profile-manager";
+    public String redirectProfileManager() {
+        return "redirect:/candidate-manager";
     }
 
     @PostMapping("/updateProfile")
-    public String updateProfileFromManager(Model model,
-                                           @RequestParam(name = "id") Long id,
-                                           @RequestParam(name = "firstName") String firstName,
-                                           @RequestParam(name = "lastName") String lastName,
-                                           @RequestParam(name = "middleName") String middleName,
-                                           @RequestParam(name = "address") String address,
-                                           @RequestParam(name = "phone") String phone,
-                                           @RequestParam(name = "email") String email,
-                                           @RequestParam(name = "age") Integer age
-                                           ){
-
-        Profiles profile = new Profiles();
-        profile.setId(id);
-        profile.setFirstName(firstName);
-        profile.setLastName(lastName);
-        profile.setMiddleName(middleName);
-        profile.setAddress(address);
-        profile.setPhone(phone);
-        profile.setEmail(email);
-        profile.setAge(age);
-
-        profilesService.updateProfile(profile);
-
-        return "redirect:/profile-manager";
+    public String redirectUpdateProfile() {
+        return "redirect:/candidate-manager";
     }
 
     @PostMapping("/deleteProfile")
-    public String deleteProfileFromManager(Model model,
-                                           @RequestParam(name = "id") Long id){
-        profilesService.deleteProfileById(id);
-
-        return "redirect:/profile-manager";
+    public String redirectDeleteProfile() {
+        return "redirect:/candidate-manager";
     }
 }

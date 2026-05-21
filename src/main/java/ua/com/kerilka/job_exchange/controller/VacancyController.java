@@ -4,18 +4,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ua.com.kerilka.job_exchange.entity.ProfileHasVacancy;
-import ua.com.kerilka.job_exchange.entity.Profiles;
+import ua.com.kerilka.job_exchange.entity.Candidates;
 import ua.com.kerilka.job_exchange.entity.Users;
 import ua.com.kerilka.job_exchange.entity.Vacancy;
 import ua.com.kerilka.job_exchange.service.*;
+import ua.com.kerilka.job_exchange.service.CandidatesService;
 
 import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
 public class VacancyController {
-    private final ProfilesService profileService;
+    private final CandidatesService candidatesService;
     private final VacancyService vacancyService;
     private final CompanyService companyService;
     private final UserService userService;
@@ -56,9 +56,9 @@ public class VacancyController {
                                   Principal principal) {
 
         Users currentUser = userService.findUserByUsername(principal.getName());
-        Profiles currentProfile = profileService.findByUser(currentUser);
+        Candidates currentCandidate = candidatesService.findByUser(currentUser);
 
-        phvService.apply(currentProfile, vacancyId);
+        phvService.apply(currentCandidate, vacancyId);
 
         return "redirect:/thanks";
     }

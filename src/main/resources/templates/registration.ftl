@@ -24,40 +24,40 @@
                                 </div>
                             </div>
 
-                            <@s.bind "profiles"/>
+                            <@s.bind "candidates"/>
                             <hr>
                             <h5 class="text-primary mb-3">Особиста інформація</h5>
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <label class="form-label small fw-bold">Прізвище</label>
-                                    <@s.formInput "profiles.lastName", "class='form-control'"/>
+                                    <@s.formInput "candidates.lastName", "class='form-control'"/>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label small fw-bold">Ім'я</label>
-                                    <@s.formInput "profiles.firstName", "class='form-control'"/>
+                                    <@s.formInput "candidates.firstName", "class='form-control'"/>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label small fw-bold">По-батькові</label>
-                                    <@s.formInput "profiles.middleName", "class='form-control'"/>
+                                    <@s.formInput "candidates.middleName", "class='form-control'"/>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label class="form-label small fw-bold">Телефон</label>
-                                    <@s.formInput "profiles.phone", "class='form-control' placeholder='+380...'"/>
+                                    <@s.formInput "candidates.contactInfo", "class='form-control' placeholder='+380...'"/>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label class="form-label small fw-bold">Вік</label>
-                                    <@s.formInput "profiles.age", "class='form-control' "/>
+                                    <@s.formInput "candidates.age", "class='form-control' "/>
                                 </div>
                             </div>
 
                             <div class="mb-4">
                                 <label class="form-label small fw-bold">Адреса проживання</label>
-                                <@s.formInput "profiles.address", "class='form-control'"/>
+                                <@s.formInput "candidates.address", "class='form-control'"/>
                             </div>
 
                             <div class="d-grid">

@@ -25,8 +25,7 @@ public class Candidates {
     private int age;
     private String contactInfo;
     private String address;
-
-    private String urlAvatar;
+    private String avatarName;
 
     @OneToOne
     @MapsId

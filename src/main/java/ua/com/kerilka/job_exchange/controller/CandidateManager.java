@@ -32,8 +32,7 @@ public class CandidateManager {
                                            @RequestParam(name = "lastName") String lastName,
                                            @RequestParam(name = "middleName") String middleName,
                                            @RequestParam(name = "address") String address,
-                                           @RequestParam(name = "phone") String phone,
-                                           @RequestParam(name = "email") String email,
+                                           @RequestParam(name = "phone") String contactInfo,
                                            @RequestParam(name = "age") Integer age
                                            ){
 
@@ -43,8 +42,7 @@ public class CandidateManager {
         candidate.setLastName(lastName);
         candidate.setMiddleName(middleName);
         candidate.setAddress(address);
-        candidate.setPhone(phone);
-        candidate.setEmail(email);
+        candidate.setContactInfo(contactInfo);
         candidate.setAge(age);
 
         candidatesService.updateCandidate(candidate);

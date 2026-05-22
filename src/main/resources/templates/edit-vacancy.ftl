@@ -1,6 +1,6 @@
-<#import "company/templ-company.ftl" as t>
+<#import "company/templ-company.ftl" as p>
 
-<@t.pages>
+<@p.pages>
 <div class="card shadow border-0 p-4">
 
     <div class="border-bottom pb-3 mb-4">
@@ -38,6 +38,11 @@
                       placeholder="Графік роботи...">${vacancy.conditions}</textarea>
         </div>
 
+        <div class="mb-3">
+            <label for="requirements" class="form-label fw-bold">Житлові умови</label>
+            <textarea class="form-control" id="requirements" name="housingConditions" rows="2" required
+                      placeholder="Наприклад: Надається гуртожиток / Не надається">${vacancy.requirements}</textarea>
+        </div>
         <div class="d-flex gap-2 justify-content-end border-top pt-4">
             <a href="/profile/company/vacancies" class="btn btn-outline-secondary fw-bold px-4">Скасувати</a>
             <button type="submit" class="btn btn-primary fw-bold px-5">Зберегти зміни</button>
@@ -45,4 +50,4 @@
 
     </form>
 </div>
-</@t.pages>
+</@p.pages>

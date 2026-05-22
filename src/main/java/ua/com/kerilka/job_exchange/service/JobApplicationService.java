@@ -21,18 +21,15 @@ public class JobApplicationService {
     private final CandidatesRepository candidatesRepository;
     private final VacancyRepository vacancyRepository;
 
-    // 1. Отримати всі пропозиції конкретної компанії
     public List<JobApplication> findAllByCompany(Company company) {return jobApplicationRepository.findByVacancyCompany(company);}
-
     public List<JobApplication> findAllApplications() {return jobApplicationRepository.findAll();}
-
     public List<JobApplication> findByCandidate(Candidates candidate) {return jobApplicationRepository.findByCandidate(candidate);}
     public JobApplication findById(Long id) {return jobApplicationRepository.findById(id).get();}
-
     public JobApplication findByCandidateAndVacancy(Candidates candidate, Vacancy vacancy) {
         return jobApplicationRepository.findByCandidateAndVacancy(candidate, vacancy);
     }
-    // 2. Створити нове запрошення від імені компанії
+
+    // Створення нового запрошення на роботу від імені компанії
     @Transactional
     public void createCompanyInvitation(Long candidateId, Long vacancyId) {
         Candidates candidate = candidatesRepository.findById(candidateId)
@@ -44,8 +41,8 @@ public class JobApplicationService {
         JobApplication application = new JobApplication();
         application.setCandidate(candidate);
         application.setVacancy(vacancy);
-        application.setInitiatedBy("COMPANY"); // Ініціатор — роботодавець
-        application.setStatus("PENDING");       // Початковий статус
+        application.setInitiatedBy("COMPANY");
+        application.setStatus("PENDING");
 
         jobApplicationRepository.save(application);
     }
@@ -53,10 +50,7 @@ public class JobApplicationService {
     public void save(JobApplication jobApplication){jobApplicationRepository.save(jobApplication);}
 
     public void deleteById(Long id){jobApplicationRepository.deleteById(id);}
-
     public void deleteByVacancy(Vacancy vacancy){jobApplicationRepository.deleteByVacancy(vacancy);}
-
-
     public void deleteByCandidate(Candidates candidate){jobApplicationRepository.deleteByCandidate(candidate);}
 
 }

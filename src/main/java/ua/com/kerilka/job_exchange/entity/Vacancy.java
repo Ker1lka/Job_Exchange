@@ -22,6 +22,7 @@ public class Vacancy {
     private Double salary;
     private String requirements;
     private String conditions;
+    private String housingConditions;
     private boolean isClosed;
 
     @ManyToOne

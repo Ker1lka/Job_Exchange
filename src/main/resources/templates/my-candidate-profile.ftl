@@ -21,6 +21,7 @@
                         </a>
                     </div>
 
+                    <#-- Блок: Особисті дані -->
                     <div class="mb-4">
                         <h5 class="fw-bold text-secondary mb-3"><i class="bi bi-person-card"></i> Особисті дані</h5>
                         <div class="row g-3 bg-light p-3 rounded">
@@ -34,6 +35,7 @@
                         </div>
                     </div>
 
+                    <#-- Блок: Професійний досвід та Бажана посада -->
                     <div class="mb-4">
                         <h5 class="fw-bold text-secondary mb-3"><i class="bi bi-briefcase"></i> Професійний досвід</h5>
                         <div class="row g-3 bg-light p-3 rounded">
@@ -50,6 +52,7 @@
                         </div>
                     </div>
 
+                    <#-- Блок: Відомості про освіту шукача -->
                     <div class="mb-4">
                         <h5 class="fw-bold text-secondary mb-3"><i class="bi bi-mortarboard"></i> Освіта</h5>
                         <div class="row g-3 bg-light p-3 rounded">
@@ -64,15 +67,20 @@
                         </div>
                     </div>
 
+                    <#-- Блок: Побажання та вимоги до нової роботи -->
                     <div class="mb-3">
                         <h5 class="fw-bold text-secondary mb-3"><i class="bi bi-sliders"></i> Вимоги до майбутньої роботи</h5>
                         <div class="p-3 bg-warning bg-opacity-10 border border-warning border-opacity-25 rounded text-dark">
                             <p class="mb-0" style="white-space: pre-line;">${(candidate.jobRequirements)!"Вимоги ще не сформульовані. Додайте інформацію про бажану зарплату чи графік!"}</p>
                         </div>
                     </div>
+
+                    <#-- Кнопка друку резюме (Генерація друкованої форми / PDF) -->
                     <button onclick="window.print();" class="btn btn-outline-secondary fw-semibold shadow-sm text-nowrap">
                         <i class="bi bi-printer me-2">Роздрукувати резюме / PDF</i>
                     </button>
+
+                    <#-- НЕБЕЗПЕЧНА ЗОНА (Danger Zone): Форма повного видалення акаунту -->
                     <div class="card border-danger mt-5 shadow-sm">
                         <div class="card-body d-flex justify-content-between align-items-center bg-light-danger rounded">
                             <div>

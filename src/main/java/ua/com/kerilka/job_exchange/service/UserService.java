@@ -19,32 +19,29 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository usersRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users user = usersRepository.findByUsername(username);
-        if (user == null) throw new UsernameNotFoundException(username);
-        return user;}
+    public Users findById(Long id) {return usersRepository.findById(id).orElse(null);}
     public Users findUserByUsername(String username) {
         return usersRepository.findByUsername(username);
-    }
-    public boolean getUserFromDB(String username) {
-        return (usersRepository.findByUsername(username) != null);
-    }
-    public Users saveNewUser(Users user) {
-        return usersRepository.save(user);
     }
     public List<Users> findAllUsers() {
         return usersRepository.findAll();
     }
 
-    public Users findById(Long id) {return usersRepository.findById(id).orElse(null);}
+    // Завантаження користувача системою Spring Security під час авторизації
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Users user = usersRepository.findByUsername(username);
+        if (user == null) throw new UsernameNotFoundException(username);
+        return user;}
+
+    public boolean getUserFromDB(String username) {
+        return (usersRepository.findByUsername(username) != null);
+    }
+
+    public Users saveNewUser(Users user) {
+        return usersRepository.save(user);
+    }
     public void save(Users user) {usersRepository.save(user);}
 
-    public List<Users> findAllRoles() {return usersRepository.findAll();}
-    public void addRoleToUser(Long userId, Long roleId){usersRepository.addRoleToUser(userId, roleId);}
-    public void deteleRoleFromUser(Long userId, Long roleId){usersRepository.deleteRoleFromUser(userId, roleId);}
-    public void updateUser(Users user) {usersRepository.save(user);}
-
     public void deleteUser(Users user){usersRepository.delete(user);}
-    public void deleteUserById(Long id){usersRepository.deleteById(id);}
 }

@@ -28,72 +28,57 @@ public class CandidateController {
     private final UserService userService;
     private final JobApplicationService jobApplicationService;
 
-
+    // Перегляд усіх заявок та запрошень кандидата
     @GetMapping("/profile/candidate/applications")
     public String showCandidateApplications(Principal principal, Model model) {
-        // 1. Знаходимо поточного кандидата
         Users user = userService.findUserByUsername(principal.getName());
         Candidates candidate = candidatesService.findByUser(user);
-
-        // 2. Отримуємо ВСІ його заявки (і відгуки, і запрошення від компаній)
-        // Тобі знадобиться метод у репозиторії/сервісі: findByCandidate(candidate)
         List<JobApplication> applications = jobApplicationService.findByCandidate(candidate);
 
         model.addAttribute("applicationsList", applications);
-        return "candidate-applications"; // Назва нового FTL файлу
+        return "candidate-applications";
     }
 
-    //Edit Profile
-
+    // Редагування профілю кандидата
     @GetMapping("/profile/candidate/edit")
     public String showEditPage(Principal principal, Model model) {
         Users user = userService.findUserByUsername(principal.getName());
         Candidates candidate = candidatesService.findByUser(user);
 
         model.addAttribute("candidate", candidate);
-        return "edit-candidate-profile"; // наш новий HTML/FTL шаблон
+        return "edit-candidate-profile";
     }
 
-    // 2. ОБРОБИТИ ЗБЕРЕЖЕННЯ ДАНИХ
     @PostMapping("/profile/candidate/edit")
     public String updateCandidateProfile(@ModelAttribute Candidates formData, Principal principal) {
         Users user = userService.findUserByUsername(principal.getName());
         Candidates existingCandidate = candidatesService.findByUser(user);
 
-        // 1. Основні та анкетні дані
         existingCandidate.setFirstName(formData.getFirstName());
         existingCandidate.setLastName(formData.getLastName());
         existingCandidate.setMiddleName(formData.getMiddleName());
         existingCandidate.setContactInfo(formData.getContactInfo());
         existingCandidate.setFamilyStatus(formData.getFamilyStatus());
         existingCandidate.setHousingConditions(formData.getHousingConditions());
-
-        // 2. Професія та минула робота (ДОДАНО)
         existingCandidate.setProfession(formData.getProfession());
         existingCandidate.setLastJobPlace(formData.getLastJobPlace());
         existingCandidate.setLastJobPosition(formData.getLastJobPosition());
         existingCandidate.setLeavingReason(formData.getLeavingReason());
-
-        // 3. Освіта
         existingCandidate.setInstitution(formData.getInstitution());
         existingCandidate.setSpecialization(formData.getSpecialization());
         existingCandidate.setDegree(formData.getDegree());
         existingCandidate.setEducationYears(formData.getEducationYears());
-
-        // 4. Вимоги до майбутньої роботи (ДОДАНО)
         existingCandidate.setJobRequirements(formData.getJobRequirements());
 
-        // Зберігаємо оновленого кандидата в БД
         candidatesService.save(existingCandidate);
 
         return "redirect:/profile/candidate";
     }
 
-    //Accept Or Reject
-
+    // Прийняття або відхилення запрошення від компанії
     @PostMapping("/profile/candidate/applications/{id}/accept")
     public String acceptApplication(@PathVariable Long id) {
-        JobApplication app = jobApplicationService.findById(id); // або getById
+        JobApplication app = jobApplicationService.findById(id);
         if (app != null) {
             app.setStatus("ACCEPTED");
             jobApplicationService.save(app);
@@ -111,21 +96,18 @@ public class CandidateController {
         return "redirect:/profile/candidate/applications";
     }
 
-    //Delete Candidate Profile
+    // Повне видалення профілю кандидата та його акаунту
     @PostMapping("/profile/candidate/delete")
     public String deleteCandidateProfile(Principal principal, HttpServletRequest request) {
         Users user = userService.findUserByUsername(principal.getName());
-
-        // Видаляємо користувача (налаштований каскад видалить і Candidates)
         userService.deleteUser(user);
 
-        // Розлогінюємо користувача після видалення
+        // Розлогінюємо (очищаємо сесію)
         SecurityContextHolder.clearContext();
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
         }
-
         return "redirect:/";
     }
 }

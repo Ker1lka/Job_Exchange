@@ -20,10 +20,10 @@ public class CandidatesService {
         return candidatesRepository.findByProfessionContainingIgnoreCase(keyword);
     }
 
+    // Пошук профілю кандидата за об'єктом користувача (із автоматичним створенням порожнього у разі відсутності)
     public Candidates findByUser(Users user) {
         return candidatesRepository.findByUser(user)
                 .orElseGet(() -> {
-                    // Якщо об'єкта кандидата в базі ще немає, створюємо пустий з цим ID
                     Candidates newCandidate = new Candidates();
                     newCandidate.setUser(user);
                     newCandidate.setId(user.getId()); // тому що @MapsId
@@ -38,14 +38,6 @@ public class CandidatesService {
         candidatesRepository.save(candidate);
     }
 
-    public void updateCandidate(Candidates candidate) {
-        candidatesRepository.save(candidate);
-    }
-
     public void deleteCandidate(Candidates candidates){candidatesRepository.delete(candidates);}
-
-    public void deleteCandidateById(Long id) {
-        candidatesRepository.deleteById(id);
-    }
 }
 

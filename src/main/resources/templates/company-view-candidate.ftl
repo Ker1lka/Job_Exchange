@@ -1,6 +1,6 @@
-<#import "company/templ-company.ftl" as t>
+<#import "company/templ-company.ftl" as p>
 
-<@t.pages>
+<@p.pages>
     <div class="card shadow border-0 p-4">
         <div class="d-flex align-items-center border-bottom pb-3 mb-4">
             <a href="/profile/company" class="btn btn-outline-secondary btn-sm me-3">
@@ -10,6 +10,8 @@
         </div>
 
         <div class="row">
+
+            <#-- Ліва колонка: Фотозаглушка, ПІБ та Контакти -->
             <div class="col-md-4 text-center border-end">
                 <div class="bg-light rounded p-4 mb-3">
                     <i class="bi bi-person-square text-secondary" style="font-size: 5rem;"></i>
@@ -24,26 +26,30 @@
                 </div>
             </div>
 
+            <#-- Права колонка: Детальні відомості резюме та освіти -->
             <div class="col-md-8 ps-md-4">
                 <h4 class="fw-bold text-dark mb-3"><i class="bi bi-file-earmark-text text-primary me-2"></i>Про себе та резюме</h4>
+                <#-- Блок: Вік кандидата -->
                 <div class="p-3 bg-light rounded mb-4" style="white-space: pre-line;">
                     Вік: ${(candidate.age)!'Не вказано.'}
                 </div>
+                <#-- Блок: Останнє місце роботи/посада -->
                 <div class="p-3 bg-light rounded mb-4" style="white-space: pre-line;">
                     Остання посада: ${(candidate.lastJobPosition)!'Не вказано.'}
                 </div>
+                <#-- Блок: Освітній ступінь -->
                 <div class="p-3 bg-light rounded mb-4" style="white-space: pre-line;">
                     Рівень навчання: ${(candidate.degree)!'Ступінь не вказан.'}
                 </div>
+                <#-- Блок: Спеціальність -->
                 <div class="p-3 bg-light rounded mb-4" style="white-space: pre-line;">
                     Профіль навчання(спеціалізація): ${(candidate.specialization)!'Інформація не додана.'}
                 </div>
+                <#-- Блок: Навчальний заклад -->
                 <div class="p-3 bg-light rounded mb-4" style="white-space: pre-line;">
                     Навчальний заклад: ${(candidate.institution)!'Інформація не додана.'}
                 </div>
-
-                <#-- Тут ти можеш додати інші поля твоєї сутності Candidates, наприклад навички, освіта тощо -->
             </div>
         </div>
     </div>
-</@t.pages>
+</@p.pages>

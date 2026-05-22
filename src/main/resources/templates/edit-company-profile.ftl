@@ -10,12 +10,13 @@
                     <p class="text-muted mb-0">Оновіть інформацію про вашу організацію, щоб зацікавити кандидатів</p>
                 </div>
 
+                <#-- Форма редагування компанії -->
                 <form method="post" action="/profile/company/edit">
 
                     <div class="mb-3">
                         <label for="companyName" class="form-label fw-bold">Назва компанії / Фірми</label>
                         <input type="text" class="form-control" id="companyName" name="companyName"
-                               value="${(company.companyName)!''}" required placeholder="Наприклад, ТОВ 'IT-Вектор'">
+                               value="${(company.name)!''}" required placeholder="Наприклад, ТОВ 'IT-Вектор'">
                     </div>
 
                     <div class="mb-3">
@@ -27,7 +28,7 @@
                     <div class="mb-3">
                         <label for="contacts" class="form-label fw-bold">Контактна особа та телефон</label>
                         <input type="text" class="form-control" id="contacts" name="contacts"
-                               value="${(company.contacts)!''}" placeholder="Іван Іванов, +380671234567">
+                               value="${(company.contactInfo)!''}" placeholder="Іван Іванов, +380671234567">
                     </div>
 
                     <div class="mb-4">

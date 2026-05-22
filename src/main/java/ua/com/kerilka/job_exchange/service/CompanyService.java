@@ -18,13 +18,11 @@ public class CompanyService {
     public List<Company> findAllCompanies() {return companyRepository.findAllRealCompanies();}
     public Company findById(Long id) {return companyRepository.findById(id).get();}
 
+    // Пошук профілю компанії за об'єктом користувача з обробкою виключення
     public Company findByUser(Users user) {return companyRepository.findByUser(user)
             .orElseThrow(() -> new IllegalArgumentException("Профіль компанії не знайдено"));
     }
 
-
     public void save(Company company) {companyRepository.save(company);}
-    public void updateCompany(Company company) {companyRepository.save(company);}
     public void deleteCompany(Company company) {companyRepository.delete(company);}
-    public void deleteCompanyById(long id) {companyRepository.deleteById(id);}
 }

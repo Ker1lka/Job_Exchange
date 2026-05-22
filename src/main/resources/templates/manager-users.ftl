@@ -1,5 +1,7 @@
 <#import "manager/templ-manager.ftl" as p>
 <@p.pages>
+
+    <#-- БЛОК 1: БАЗА КАНДИДАТІВ -->
     <h3 class="fw-bold text-dark mb-3"><i class="bi bi-people me-2 text-primary"></i>База кандидатів</h3>
     <div class="card shadow-sm border-0 bg-white mb-5">
         <div class="table-responsive">
@@ -15,9 +17,12 @@
                 <tbody>
                 <#list candidatesList as candidate>
                     <tr>
+                        <#-- Дані кандидата -->
                         <td>${candidate.id}</td>
                         <td class="fw-bold">${candidate.lastName} ${candidate.firstName}</td>
                         <td><span class="badge bg-light text-dark border">${candidate.profession!'-'}</span></td>
+
+                        <#-- Кнопки дій та видалення -->
                         <td class="text-center">
                             <div class="d-flex justify-content-center gap-1">
                                 <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editCand${candidate.id}"><i class="bi bi-pencil"></i></button>
@@ -26,6 +31,7 @@
                                 </form>
                             </div>
 
+                            <#-- Модальне вікно редагування кандидата -->
                             <div class="modal fade" id="editCand${candidate.id}" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content text-start">
@@ -52,6 +58,7 @@
         </div>
     </div>
 
+    <#-- БЛОК 2: ЗАРЕЄСТРОВАНІ КОМПАНІЇ -->
     <h3 class="fw-bold text-dark mb-3"><i class="bi bi-building me-2 text-success"></i>Зареєстровані компанії</h3>
     <div class="card shadow-sm border-0 bg-white">
         <div class="table-responsive">
@@ -67,9 +74,12 @@
                 <tbody>
                 <#list companiesList as company>
                     <tr>
+                        <#-- Дані компанії -->
                         <td>${company.id}</td>
                         <td class="fw-bold text-success">${(company.name)!''}</td>
                         <td>${company.address!'-'}</td>
+
+                        <#-- Кнопки дій та видалення -->
                         <td class="text-center">
                             <div class="d-flex justify-content-center gap-1">
                                 <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editComp${company.id}"><i class="bi bi-pencil"></i></button>
@@ -78,6 +88,7 @@
                                 </form>
                             </div>
 
+                            <#-- Модальне вікно редагування компанії -->
                             <div class="modal fade" id="editComp${company.id}" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content text-start">

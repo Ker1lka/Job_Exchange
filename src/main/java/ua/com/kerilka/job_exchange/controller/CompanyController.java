@@ -26,24 +26,20 @@ public class CompanyController {
     private final VacancyService vacancyService;
     private final JobApplicationService jobApplicationService;
 
-    // Перегляд списку всіх кандидатів (База безробітних)
+    // Перегляд списку всіх кандидатів
     @GetMapping("/company/candidates")
     public String listAllCandidates(@RequestParam(value = "search", required = false) String search, Model model) {
         List<Candidates> candidatesList;
 
-        if (search != null && !search.trim().isEmpty()) {
-            candidatesList = candidatesService.searchCandidatesByProfession(search);
-        } else {
-            // Якщо пошук порожній — виводимо всю базу резюме як зазвичай
-            candidatesList = candidatesService.findAllCandidates();
-        }
+        if (search != null && !search.trim().isEmpty()) {candidatesList = candidatesService.searchCandidatesByProfession(search);}
+        else {candidatesList = candidatesService.findAllCandidates();}
 
         model.addAttribute("candidatesList", candidatesList);
 
         return "company-candidates-list";
     }
 
-    // Перегляд конкретного профілю безробітного компанією за ID
+    // Перегляд конкретного профілю кандидата з можливістю запрошення
     @GetMapping("/company/candidates/{id}")
     public String viewCandidateDetails(@PathVariable Long id, Principal principal, Model model) {
         Candidates candidate = candidatesService.findById(id);
@@ -56,125 +52,99 @@ public class CompanyController {
         return "candidate-details";
     }
 
-    // Обробка надсилання пропозиції роботи кандидату
+    // Надсилання пропозиції роботи (запрошення) кандидату
     @PostMapping("/company/candidates/{candidateId}/invite")
     public String inviteCandidate(@PathVariable Long candidateId,
                                   @RequestParam Long vacancyId) {
-
         jobApplicationService.createCompanyInvitation(candidateId, vacancyId);
-
         return "redirect:/company/candidates/" + candidateId + "?success=true";
     }
 
 
-    //Edit Profile Company
+    // Редагування профілю компанії
     @GetMapping("/profile/company/edit")
     public String showEditForm(Principal principal, Model model) {
-        // Отримуємо поточного користувача і його компанію
         Users user = userService.findUserByUsername(principal.getName());
         Company company = companyService.findByUser(user);
 
         model.addAttribute("company", company);
-        return "edit-company-profile"; // Назва FTL файлу
+        return "edit-company-profile";
     }
 
-    // 2. ОБРОБКА ЗБЕРЕЖЕННЯ ДАНИХ ФОРМИ
     @PostMapping("/profile/company/edit")
     public String saveCompanyProfile(Principal principal,
                                      @RequestParam String companyName,
                                      @RequestParam String address,
                                      @RequestParam String contacts,
                                      @RequestParam String description) {
-
-        // Знаходимо саме ту компанію, яка зараз авторизована
         Users user = userService.findUserByUsername(principal.getName());
         Company company = companyService.findByUser(user);
 
-        // Оновлюємо плоскі String поля новими даними з форми
         company.setName(companyName);
         company.setAddress(address);
         company.setContactInfo(contacts);
         company.setDescription(description);
 
-        // Зберігаємо оновлений об'єкт в базу даних
         companyService.save(company);
 
-        // Перенаправляємо назад на сторінку перегляду профілю компанії
         return "redirect:/profile/company";
     }
 
-    //Only my vacancies (created by me)
-
+    // Перегляд власних вакансій компанії
     @GetMapping("/profile/company/vacancies")
     public String showMyVacancies(Principal principal, Model model) {
-        // Знаходимо поточну авторизовану компанію
         Users user = userService.findUserByUsername(principal.getName());
         Company company = companyService.findByUser(user);
-
-        // Витягуємо вакансії, що належать суто цій компанії
         List<Vacancy> myVacancies = vacancyService.findByCompany(company);
 
         model.addAttribute("myVacancies", myVacancies);
 
-        return "my-vacancies-list"; // Назва .ftl файлу
+        return "my-vacancies-list";
     }
 
-    // 2. Обробка кнопки "Архівувати / Закрити вакансію"
+    // Переведення вакансії в архів (закриття після працевлаштування)
     @PostMapping("/profile/company/vacancies/close/{id}")
     public String closeVacancy(@PathVariable Long id, Principal principal) {
-        // Перевірка безпеки: переконуємось, що вакансія належить саме цій компанії
         Users user = userService.findUserByUsername(principal.getName());
         Company company = companyService.findByUser(user);
-
         Vacancy vacancy = vacancyService.findByIdVacancy(id);
 
         if (vacancy.getCompany().getId().equals(company.getId())) {
-            // Змінюємо статус на закриту
             vacancy.setClosed(true);
-            vacancyService.save(vacancy);
-        }
-        // Повертаємо роботодавця на оновлений список його вакансій
+            vacancyService.save(vacancy);}
+
         return "redirect:/profile/company/vacancies";
     }
 
-
-    //Create Vacancy
-
+    // Створення нової вакансії фірми
     @GetMapping("/profile/company/vacancies/create")
-    public String showCreateForm() {
-        return "create-vacancy"; // Назва вашого FTL файлу
-    }
+    public String showCreateForm() {return "create-vacancy";}
 
-    // 2. ОБРОБКА ДАНИХ ФОРМИ
     @PostMapping("/profile/company/vacancies/create")
     public String processCreateVacancy(Principal principal,
                                        @RequestParam String position,
                                        @RequestParam(required = false) Double salary,
                                        @RequestParam String requirements,
-                                       @RequestParam String conditions) {
-
-        // Знаходимо користувача та його компанію
+                                       @RequestParam String conditions,
+                                       @RequestParam String housingConditions) {
         Users user = userService.findUserByUsername(principal.getName());
         Company company = companyService.findByUser(user);
 
-        // Створюємо новий об'єкт вакансії
         Vacancy vacancy = new Vacancy();
         vacancy.setPosition(position);
         vacancy.setSalary(salary);
         vacancy.setRequirements(requirements);
         vacancy.setConditions(conditions);
-        vacancy.setCompany(company); // Прив'язуємо до поточної фірми
-        vacancy.setClosed(false);    // Нова вакансія завжди активна
+        vacancy.setHousingConditions(housingConditions);
+        vacancy.setCompany(company);
+        vacancy.setClosed(false);
 
-        // Зберігаємо в базу
         vacancyService.save(vacancy);
 
-        // Повертаємо на список своїх вакансій
         return "redirect:/profile/company/vacancies";
     }
 
-    //Accept or Reject
-
+    // Прийняття або відхилення відгуку кандидата на вакансію
     @PostMapping("/profile/company/applications/{id}/accept")
     public String companyAcceptApplication(@PathVariable Long id) {
         JobApplication app = jobApplicationService.findById(id);
@@ -182,7 +152,7 @@ public class CompanyController {
             app.setStatus("ACCEPTED");
             jobApplicationService.save(app);
         }
-        return "redirect:/profile/company"; // Повертаємо в профіль компанії
+        return "redirect:/profile/company";
     }
 
     @PostMapping("/profile/company/applications/{id}/reject")
@@ -195,35 +165,26 @@ public class CompanyController {
         return "redirect:/profile/company";
     }
 
-    //Деталі кандидата з відгука на вакансію
+    // Перегляд анкети безробітного через журнал відгуків
     @GetMapping("/profile/company/applications/candidates/{id}")
     public String showCandidateProfileForCompany(@PathVariable Long id, Model model) {
-        // 1. Знаходимо кандидата за його ID
-        Candidates candidate = candidatesService.findById(id); // Переконайся, що такий метод є в сервісі
-
-        if (candidate == null) {
-            return "redirect:/profile/company?error=CandidateNotFound";
-        }
+        Candidates candidate = candidatesService.findById(id);
+        if (candidate == null) {return "redirect:/profile/company?error=CandidateNotFound";}
 
         model.addAttribute("candidate", candidate);
-        return "company-view-candidate"; // Новий шаблон
+        return "company-view-candidate";
     }
 
-    //Delete Company Profile
-
+    // Повне видалення профілю компанії та її акаунту
     @PostMapping("/profile/company/delete")
     public String deleteCompanyProfile(Principal principal, HttpServletRequest request) {
         Users user = userService.findUserByUsername(principal.getName());
-
-        // Видаляємо користувача (каскад видалить компанію та її вакансії)
         userService.deleteUser(user);
 
-        // Розлогінюємо
+        // Розлогінюємо (очищаємо сесію)
         SecurityContextHolder.clearContext();
         HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
+        if (session != null) {session.invalidate();}
 
         return "redirect:/";
     }

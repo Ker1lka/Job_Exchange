@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/candidate/vacancies">Vacancies</a>
+                    <a class="nav-link active" href="/candidate/vacancies">Вакансії</a>
                 </li>
                 <li class="nav-item">
                     <a href="/about-us" class="nav-link">Про нас</a>

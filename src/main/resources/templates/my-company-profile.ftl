@@ -22,8 +22,10 @@
             </div>
         </div>
 
+        <#-- ВНУТРІШНЯ КАРТКА: МОНІТОРИНГ ВЗАЄМОДІЙ -->
         <div class="card shadow border-0 p-4 mt-4">
 
+            <#-- Блок: Вхідні відгуки від безробітних/кандидатів -->
             <h3 class="fw-bold text-dark mb-3"><i class="bi bi-box-arrow-in-down text-primary me-2"></i> Відгуки
                 кандидатів на ваші вакансії</h3>
             <div class="table-responsive mb-5">
@@ -91,6 +93,7 @@
                 </table>
             </div>
 
+            <#-- Блок: Вихідні запрошення, які компанія надіслала фахівцям -->
             <h3 class="fw-bold text-dark mb-3"><i class="bi bi-send text-info me-2"></i> Надіслані нами запрошення
                 (Інвайти)</h3>
             <div class="table-responsive">

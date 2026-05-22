@@ -27,6 +27,8 @@
                                 <span class="badge bg-primary px-2.5 py-1.5 fs-7">${(role.name)!''}</span>
                             </#list>
                         </td>
+
+                        <#-- Форма швидкої зміни ролі -->
                         <td>
                             <form method="post" action="/admin/users/${user.id}/role" class="d-flex gap-2">
                                 <select name="roleName" class="form-select form-select-sm" style="max-width: 200px;" required>
@@ -39,11 +41,14 @@
                                 <button type="submit" class="btn btn-sm btn-success">Оновити</button>
                             </form>
                         </td>
+
+                        <#-- Кнопка виклику модального вікна та саме вікно зміни логіну -->
                         <td class="text-center">
                             <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editLoginModal${user.id}">
                                 <i class="bi bi-pencil-square me-1"></i> Редагувати логін
                             </button>
 
+                            <#-- Модальне вікно для редагування логіну (Username) -->
                             <div class="modal fade" id="editLoginModal${user.id}" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content text-start">

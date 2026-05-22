@@ -2,6 +2,7 @@
 <@p.pages>
     <h2 class="fw-bold mb-4">Журнал взаємодії (Відгуки та Інвайти)</h2>
 
+    <#-- Таблиця моніторингу взаємодій -->
     <div class="card shadow-sm border-0 bg-white">
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
@@ -18,6 +19,7 @@
                 <tbody>
                 <#list applicationsList as app>
                     <tr>
+                        <#-- Базові дані запису взаємодії -->
                         <td>${app.id}</td>
                         <td class="fw-bold">${(app.candidate.lastName)!''} ${(app.candidate.firstName)!''}</td>
                         <td>
@@ -25,6 +27,8 @@
                             <i class="bi bi-arrow-right mx-1 text-muted"></i>
                             <small class="text-muted">${(app.vacancy.position)!''}</small>
                         </td>
+
+                        <#-- Відображення ініціатора (Кандидат чи Компанія) -->
                         <td>
                             <#if app.initiatedBy == "CANDIDATE">
                                 <span class="badge bg-info text-dark">Відгук безробітного</span>
@@ -32,6 +36,8 @@
                                 <span class="badge bg-warning text-dark">Запрошення фірми</span>
                             </#if>
                         </td>
+
+                        <#-- Поточний статус взаємодії -->
                         <td>
                             <#if app.status == "PENDING">
                                 <span class="badge bg-warning">Очікує відповіді</span>

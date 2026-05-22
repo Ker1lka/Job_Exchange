@@ -18,7 +18,6 @@ public class Candidates {
     @Id
     private Long id;
 
-    //Registration info
     private String firstName;
     private String lastName;
     private String middleName;
@@ -28,20 +27,14 @@ public class Candidates {
     private String familyStatus;
     private String housingConditions;
     private String avatarName;
-
-    //Profession
     private String profession;
     private String lastJobPlace;
     private String lastJobPosition;
     private String leavingReason;
-
-    //Education
     private String institution;
     private String specialization;
     private String degree;
     private String educationYears;
-
-    //Other
     private String jobRequirements;
     private boolean isArchived;
 

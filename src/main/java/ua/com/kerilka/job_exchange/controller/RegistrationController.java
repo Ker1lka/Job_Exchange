@@ -30,9 +30,9 @@ public class RegistrationController {
     private final UserService userService;
     private final CandidatesService candidatesService;
     private final CompanyService companyService;
-    private final PasswordEncoder getPasswordEncoder;
 
-    //Candidate Register
+
+    // Реєстрація нового кандидата (безробітного)
     @GetMapping("/registration/candidate")
     public String registrationCandidate(){
         return "registration-candidates";
@@ -44,29 +44,25 @@ public class RegistrationController {
                                        @Valid Candidates profile,
                                        BindingResult bindingResult2,
                                        RedirectAttributes redirectAttributes) {
-        // 1. Перевірка, чи існує такий логін
         if (userService.getUserFromDB(user.getUsername())) {
             redirectAttributes.addAttribute("message", "Username already exists");
             return "redirect:/registration/candidate";
         }
 
-        // 2. Перевірка помилок валідації (повертає сторінку реєстрації кандидата)
         if (bindingResult.hasErrors() || bindingResult2.hasErrors()) {return "registration-candidates";}
-        // 3. Хешування паролю та збереження користувача
+
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         Users userById = userService.saveNewUser(user);
 
         Roles candidateRole = roleService.findByName("ROLE_candidate");
         userById.setRoles(Collections.singleton(candidateRole));
-
-        // 5. Зв'язуємо профіль з користувачем та зберігаємо в анкету безробітних
         profile.setUser(userById);
         candidatesService.save(profile);
 
         return "redirect:/login";
     }
 
-    //Company Register
+    // Реєстрація нової компанії (роботодавця)
     @GetMapping("/registration/company")
     public String registrationCompany(){
         return "registration-company";
@@ -75,34 +71,24 @@ public class RegistrationController {
     @PostMapping("/registration/company")
     public String saveNewCompanyToDB(@Valid Users user,
                                      BindingResult bindingResult,
-                                     @Valid Company profile, // Перевірте назву вашого класу (Company чи CompanyProfile)
+                                     @Valid Company profile,
                                      BindingResult bindingResult2,
                                      RedirectAttributes redirectAttributes) {
-        // 1. Перевірка, чи існує такий логін
         if (userService.getUserFromDB(user.getUsername())) {
             redirectAttributes.addAttribute("message", "Username already exists");
             return "redirect:/registration/company";
         }
 
-        // 2. Перевірка помилок валідації (повертає сторінку реєстрації компанії)
         if (bindingResult.hasErrors() || bindingResult2.hasErrors()) {return "registration-company";}
 
-        // 3. Хешування паролю та збереження користувача
-        user.setPassword(getPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         Users userById = userService.saveNewUser(user);
 
         Roles candidateCompany = roleService.findByName("ROLE_company");
         userById.setRoles(Collections.singleton(candidateCompany));
-
-        // 5. Зв'язуємо профіль компанії з користувачем та зберігаємо в базу вакансій/фірм
         profile.setUser(userById);
-        companyService.save(profile); // Не забудьте додати конігурацію/інжект для companyService вгорі класу
+        companyService.save(profile);
 
         return "redirect:/login";
     }
-
-
-
-
-
 }

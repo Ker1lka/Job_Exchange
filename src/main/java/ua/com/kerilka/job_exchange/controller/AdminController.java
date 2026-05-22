@@ -22,16 +22,14 @@ public class AdminController {
     private final UserService userService;
     private final RoleService roleService;
 
-    // Сторінка 1: Список усіх користувачів
+    //Виведення всіх користувачів
     @GetMapping("/users")
     public String viewUsers(Model model) {
         model.addAttribute("allUsers", userService.findAllUsers());
         return "admin-users";
     }
 
-
-
-    // Дія: Зміна ролі (отримує зі сторінки значення на кшталт "ROLE_admin")
+    //Зміна ролі користувача
     @PostMapping("/users/{id}/role")
     public String changeRole(@PathVariable Long id, @RequestParam String roleName) {
         Users user = userService.findById(id);
@@ -47,7 +45,7 @@ public class AdminController {
         return "redirect:/admin/users?success=role";
     }
 
-    // Дія: Зміна логіна (Email) користувача
+    // Зміна логіна користувача
     @PostMapping("/users/{id}/username")
     public String changeUsername(@PathVariable Long id, @RequestParam String newUsername) {
         if (userService.getUserFromDB(newUsername)) {
@@ -61,18 +59,16 @@ public class AdminController {
         return "redirect:/admin/users?success=username";
     }
 
-    // About Us
-
+    // Керування сторінкою "Про нас"
     @GetMapping("/settings")
     public String adminSettings(Model model) {
-        // Передаємо поточний текст у форму, щоб адмін бачив, що зараз написано
         model.addAttribute("currentAboutText", aboutUsService.getAboutText());
         return "admin-settings";
     }
 
     @PostMapping("/settings/about")
     public String updateAboutText(@RequestParam String newText) {
-        aboutUsService.saveAboutText(newText); // РЕАЛЬНО ЗБЕРІГАЄМО ТЕКСТ
+        aboutUsService.saveAboutText(newText);
         return "redirect:/admin/settings?success=true";
     }
 }

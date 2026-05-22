@@ -20,8 +20,12 @@
                 <tbody>
                 <#list applicationsList as app>
                     <tr>
+
+                        <#-- Інформація про вакансію та компанію -->
                         <td><strong class="text-dark">${(app.vacancy.position)!''}</strong></td>
                         <td>${(app.vacancy.company.name)!''}</td>
+
+                        <#-- Визначення типу запиту (Запрошення або Відгук) -->
                         <td>
                             <#if app.initiatedBy == "COMPANY">
                                 <span class="badge bg-info text-dark px-3 py-2">
@@ -33,6 +37,8 @@
                         </span>
                             </#if>
                         </td>
+
+                        <#-- Відображення поточного статусу -->
                         <td>
                             <#if app.status == "PENDING">
                                 <span class="badge bg-warning text-dark fw-bold px-3 py-2">Очікує розгляду</span>
@@ -45,6 +51,7 @@
                             </#if>
                         </td>
 
+                        <#-- Кнопки керування та прийняття рішень -->
                         <td class="text-center">
                             <div class="d-flex gap-2 justify-content-center">
                                 <a href="/candidate/vacancies/${app.vacancy.id}" class="btn btn-sm btn-outline-primary" title="Переглянути вакансію">
@@ -70,6 +77,7 @@
                         </td>
                     </tr>
                 <#else>
+                    <#-- Заглушка, якщо список взаємодій порожній -->
                     <tr>
                         <td colspan="5" class="text-center py-5 text-muted">У вас поки немає активних відгуків чи запрошень.</td>
                     </tr>

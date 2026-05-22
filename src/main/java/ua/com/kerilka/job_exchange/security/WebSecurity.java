@@ -23,34 +23,35 @@ public class WebSecurity {
         return new BCryptPasswordEncoder();
     }
 
-
+    // Основний ланцюжок фільтрів безпеки та авторизації (SecurityFilterChain)
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                //All Users
+                                // Публічні адреси, доступні абсолютно всім
                                 .requestMatchers("/", "/about-us", "/login", "/registration/candidate",
                                         "/registration/company", "/static/**", "/css/**", "/images/**").permitAll()
 
-                                //Authorized
+                                // Перенаправлення користувача за роллю після авторизації
                                 .requestMatchers("/success").authenticated()
 
-                                //Candidates
+                                // Доступ суто для кандидатів (безробітних)
                                 .requestMatchers("/profile/candidate/**", "/candidate/**").hasAuthority("ROLE_candidate")
 
-                                //Company
+                                // Доступ суто для компаній (роботодавців)
                                 .requestMatchers("/profile/company/**", "/company/**").hasAuthority("ROLE_company")
 
-                                //Manager
-                                .requestMatchers("/manager").hasAuthority("ROLE_manager")
+                                // Доступ суто для менеджерів платформи
+                                .requestMatchers("/manager/**").hasAuthority("ROLE_manager")
 
-                                //Admin
-                                .requestMatchers("/admin").hasAuthority("ROLE_admin")
+                                // Доступ суто для адміністратора
+                                .requestMatchers("/admin/**").hasAuthority("ROLE_admin")
 
                                 .anyRequest().authenticated()
                 )
+                // Налаштування форми входу в систему
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/success", true)
@@ -60,15 +61,15 @@ public class WebSecurity {
                         .logoutSuccessUrl("/")
                         .permitAll()
                 )
+                // Безпечний вихід із системи з повним анулюванням поточної сесії
                 .logout(logout -> logout
-                        .logoutUrl("/logout")               // URL, на який відправлятиметься запит
-                        .logoutSuccessUrl("/login?logout")  // Куди перенаправити після успішного виходу
-                        .invalidateHttpSession(true)        // Анулювати сесію
-                        .clearAuthentication(true)          // Очистити дані авторизації
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID")
                         .permitAll()
                 );
-        ;
-
         return http.build();
     }
 }

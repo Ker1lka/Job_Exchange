@@ -11,6 +11,7 @@
             </a>
         </div>
 
+        <#-- Таблиця управління власними вакансіями -->
         <div class="table-responsive">
             <table class="table table-hover align-middle border">
                 <thead class="table-light">
@@ -39,6 +40,7 @@
                             </#if>
                         </td>
 
+                        <#-- Кнопки керування (Редагування / Архівування) -->
                         <td class="text-end">
                             <div class="btn-group btn-group-sm">
                                 <a href="/profile/company/vacancies/edit/${vacancy.id}"
@@ -58,6 +60,7 @@
                     </tr>
                 <#else>
                     <tr>
+                        <#-- Заглушка, якщо компанія ще не додала жодного оголошення -->
                         <td colspan="4" class="text-center text-muted py-4">
                             Ви ще не створили жодної вакансії. Натисніть кнопку "Створити вакансію" вище.
                         </td>

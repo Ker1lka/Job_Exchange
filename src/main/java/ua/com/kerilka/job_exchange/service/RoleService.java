@@ -13,11 +13,11 @@ public class RoleService {
 
     public void saveRole(Roles role){roleRepository.save(role);}
 
+    // Отримання загальної кількості ролей у системі (для ініціалізації БД)
     public long countRoles() {return roleRepository.count();}
 
+    // Пошук ролі за її назвою з обробкою виключення у разі відсутності
     public Roles findByName(String name) {
-        return roleRepository.findByName(name)
-                .orElseThrow(() -> new RuntimeException("Role not found: " + name));
+        return roleRepository.findByName(name).orElseThrow(() -> new RuntimeException("Role not found: " + name));
     }
-
 }

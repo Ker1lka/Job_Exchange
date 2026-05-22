@@ -12,6 +12,7 @@
         <h4 class="text-primary fw-semibold">${(candidate.profession)!"Професія не вказана"}</h4>
     </div>
 
+    <#-- Блок: Особиста інформація -->
     <div class="mb-4">
         <h5 class="fw-bold text-secondary mb-2">Особиста інформація</h5>
         <div class="row g-3 bg-light p-3 rounded">
@@ -25,6 +26,7 @@
         </div>
     </div>
 
+    <#-- Блок: Досвід роботи (Минуле місце) -->
     <div class="mb-4">
         <h5 class="fw-bold text-secondary mb-2">Минуле місце роботи</h5>
         <div class="row g-3 bg-light p-3 rounded">
@@ -38,6 +40,7 @@
         </div>
     </div>
 
+    <#-- Блок: Освіта шукача -->
     <div class="mb-4">
         <h5 class="fw-bold text-secondary mb-2">Освіта</h5>
         <div class="row g-3 bg-light p-3 rounded">
@@ -52,6 +55,7 @@
         </div>
     </div>
 
+    <#-- Блок: Вимоги до майбутнього місця роботи -->
     <div class="mb-4">
         <h5 class="fw-bold text-secondary mb-2">Вимоги кандидата до майбутньої роботи</h5>
         <div class="p-3 bg-warning bg-opacity-10 border border-warning border-opacity-25 rounded text-dark">
@@ -59,6 +63,7 @@
         </div>
     </div>
 
+    <#-- Форма відправки запрошення (оферу) на роботу -->
     <div class="mt-4 p-4 bg-white border rounded shadow-sm">
         <h5 class="fw-bold text-dark mb-3">Запропонувати вакансію цьому кандидату</h5>
 

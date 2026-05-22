@@ -32,6 +32,7 @@
                     </div>
                 </div>
 
+                <#-- Блок детальних характеристик: Вимоги, Умови та Житло -->
                 <div class="row g-4 mb-5">
                     <div class="col-md-6">
                         <div class="p-4 bg-light rounded-4 h-100 shadow-sm border-start border-4 border-warning">
@@ -54,14 +55,22 @@
                             </p>
                         </div>
                     </div>
+                    <p class="card-text">
+                        <i class="bi bi-house-door-fill text-info me-2"></i>
+                        <strong>Житлові умови:</strong> ${vacancy.housingConditions!'-'}
+                    </p>
+                    </div>
                 </div>
 
+
+                <#-- Блок: Інформація про картку компанії-роботодавця -->
                 <div class="p-4 rounded-4 bg-dark text-white mb-5">
                     <h5 class="fw-bold mb-2"><i class="bi bi-info-circle me-2">Про роботодавця:</i></h5>
                     <p class="mb-1 text-light opacity-75"><strong>Юридична адреса:</strong> ${(vacancy.company.address)!''}</p>
                     <p class="mb-0 text-light opacity-75"><strong>Контакти HR / Менеджера:</strong> ${(vacancy.company.contactInfo)!''}</p>
                 </div>
 
+                <#-- Нижня секція: Обробка статусів взаємодії (Відгуки та Інвати) -->
                 <div class="d-flex justify-content-center border-top pt-4">
                     <#if application??>
                         <#if application.status == "PENDING">
@@ -90,6 +99,8 @@
                             </div>
                         </#if>
 
+                    <#-- Кнопка активного відгуку (якщо записів взаємодії немає) -->
+                    <#-- Спеціальні numbers на кшталт 0 чи грошові знаки залишено в стандартному тексті -->
                     <#else>
                         <form method="post" action="/candidate/vacancies/apply/${vacancy.id}">
                             <input type="hidden" name="${(_csrf.parameterName)!''}" value="${(_csrf.token)!''}"/>
@@ -99,6 +110,8 @@
                         </form>
                     </#if>
                 </div>
+
+                <#-- Кнопка друку або збереження сторінки вакансії у PDF -->
                 <button onclick="window.print();" class="btn btn-light border fw-semibold text-dark shadow-sm">
                     <i class="bi bi-file-earmark-pdf text-danger me-2">Зберегти вакансію в PDF / Друк</i>
                 </button>

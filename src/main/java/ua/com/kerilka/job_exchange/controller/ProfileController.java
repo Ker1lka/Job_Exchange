@@ -25,7 +25,7 @@ public class ProfileController {
     private final CompanyService companyService;
     private final JobApplicationService jobApplicationService;
 
-    // Спільна точка входу для розподілу користувачів за ролями
+    // Перенаправлення користувача у відповідний кабінет залежно від його ролі
     @GetMapping("/profile")
     public String profileGateway(Principal principal) {
         Users user = userService.findUserByUsername(principal.getName());
@@ -33,14 +33,11 @@ public class ProfileController {
         boolean isCandidate = user.getRoles().stream()
                 .anyMatch(role -> role.getName().equals("ROLE_candidate"));
 
-        if (isCandidate) {
-            return "redirect:/profile/candidate";
-        } else {
-            return "redirect:/profile/company";
-        }
+        if (isCandidate) {return "redirect:/profile/candidate";}
+        else {return "redirect:/profile/company";}
     }
 
-    // Сторінка власного профілю КАНДИДАТА
+    // Перегляд особистого профілю кандидата
     @GetMapping("/profile/candidate")
     public String showMyCandidateProfile(Principal principal, Model model) {
         Users user = userService.findUserByUsername(principal.getName());
@@ -50,7 +47,7 @@ public class ProfileController {
         return "my-candidate-profile";
     }
 
-    // Сторінка власного профілю КОМПАНІЇ
+    // Перегляд особистого профілю компанії та журналу її пропозицій
     @GetMapping("/profile/company")
     public String showMyCompanyProfile(Principal principal, Model model) {
         Users user = userService.findUserByUsername(principal.getName());

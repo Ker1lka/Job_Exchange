@@ -4,8 +4,10 @@
         <div class="card shadow border-0 p-4" style="max-width: 700px; margin: 0 auto;">
             <h3 class="fw-bold mb-4 text-center text-primary">Редагування профілю кандидата</h3>
 
+            <#-- Форма редагування профілю -->
             <form method="post" action="/profile/candidate/edit">
 
+                <#-- Блок: Особисті дані -->
                 <h5 class="fw-bold mb-3 text-secondary border-bottom pb-2">Особисті дані</h5>
                 <div class="mb-3">
                     <label class="form-label">Ім'я</label>
@@ -36,6 +38,7 @@
                     </div>
                 </div>
 
+                <#-- Блок: Професія та досвід -->
                 <h5 class="fw-bold mt-4 mb-3 text-secondary border-bottom pb-2">Професія та досвід</h5>
                 <div class="mb-3">
                     <label class="form-label">Ваша професія / Спеціальність</label>
@@ -58,6 +61,7 @@
                     <input type="text" name="leavingReason" class="form-control" value="${(candidate.leavingReason)!''}" placeholder="За власним бажанням / скорочення">
                 </div>
 
+                <#-- Блок: Освіта -->
                 <h5 class="fw-bold mt-4 mb-3 text-secondary border-bottom pb-2">Освіта</h5>
                 <div class="mb-3">
                     <label class="form-label">Навчальний заклад</label>
@@ -84,6 +88,7 @@
                     <input type="text" name="educationYears" class="form-control" value="${(candidate.educationYears)!''}" placeholder="Наприклад: 2022-2026">
                 </div>
 
+                <#-- Блок: Вимоги до майбутньої роботи -->
                 <h5 class="fw-bold mt-4 mb-3 text-secondary border-bottom pb-2">Вимоги до майбутньої роботи</h5>
                 <div class="mb-4">
                     <label class="form-label">Побажання щодо роботи</label>

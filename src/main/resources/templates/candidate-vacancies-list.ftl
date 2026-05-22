@@ -10,6 +10,7 @@
         <span class="badge bg-success fs-6">Активних вакансій: ${vacanciesList?size}</span>
     </div>
 
+    <#-- Сітка виведення вакансій -->
     <div class="row">
         <#list vacanciesList as vacancy>
             <#if !vacancy.closed>
@@ -17,6 +18,7 @@
                     <div class="card shadow-sm border-0 bg-light p-3">
                         <div class="row align-items-center">
 
+                            <#-- Назва посади та компанія -->
                             <div class="col-md-5">
                                 <h5 class="fw-bold text-dark mb-1">${vacancy.position}</h5>
                                 <p class="text-primary mb-0 fw-semibold">
@@ -24,6 +26,7 @@
                                 </p>
                             </div>
 
+                            <#-- Заробітна плата -->
                             <div class="col-md-3">
                                 <span class="fs-5 fw-bold text-success">
                                     <#if vacancy.salary?? && vacancy.salary gt 0>
@@ -34,6 +37,7 @@
                                 </span>
                             </div>
 
+                            <#-- Кнопка переходу до деталей -->
                             <div class="col-md-4 text-md-end mt-3 mt-md-0">
                                 <a href="/candidate/vacancies/${vacancy.id}" class="btn btn-primary fw-bold px-4">
                                     Детальніше
@@ -45,6 +49,7 @@
                 </div>
             </#if>
         <#else>
+            <#-- Заглушка, якщо список вакансій порожній -->
             <div class="col-12 text-center py-5">
                 <p class="text-muted fs-5">Активних вакансій поки що немає.</p>
             </div>

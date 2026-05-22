@@ -24,14 +24,14 @@ public class ManagerController {
     private final UserService userService;
     private final JobApplicationService jobApplicationService;
 
-    // Сторінка 1: Управління всіма вакансіями платформи
+    // Сторінка керування вакансіями
     @GetMapping("/vacancies")
     public String manageVacancies(Model model) {
         model.addAttribute("vacanciesList", vacancyService.findAllVacancies());
         return "manager-vacancies";
     }
 
-    // Сторінка 2: База Кандидатів та Компаній
+    // Сторінка керування акаунтами безробітних та фірм
     @GetMapping("/users")
     public String manageUsers(Model model) {
         model.addAttribute("candidatesList", candidatesService.findAllCandidates());
@@ -39,32 +39,41 @@ public class ManagerController {
         return "manager-users";
     }
 
-    // Сторінка 3: Модерація журналів відгуків
+    // Сторінка модерації журналу відгуків і запрошень
     @GetMapping("/applications")
     public String manageApplications(Model model) {
         model.addAttribute("applicationsList", jobApplicationService.findAllApplications());
         return "manager-applications";
     }
 
-    // --- ДІЇ З ВАКАНСІЯМИ ---
+    // Редагування вакансії
+    @PostMapping("/vacancies/edit/{id}")
+    public String editVacancy(@PathVariable Long id,
+                              @RequestParam String position,
+                              @RequestParam Double salary,
+                              @RequestParam String housingConditions,
+                              @RequestParam String requirements,
+                              @RequestParam String conditions) {
+        Vacancy vacancy = vacancyService.findByIdVacancy(id);
+        if (vacancy != null) {
+            vacancy.setPosition(position);
+            vacancy.setSalary(salary);
+            vacancy.setHousingConditions(housingConditions);
+            vacancy.setRequirements(requirements);
+            vacancy.setConditions(conditions);
+
+            vacancyService.save(vacancy);
+        }
+        return "redirect:/manager/vacancies?updated=true";
+    }
+    //Видалення вакансії
     @PostMapping("/vacancies/delete/{id}")
     public String deleteVacancy(@PathVariable Long id) {
         vacancyService.deleteVacancyById(id);
         return "redirect:/manager/vacancies?deleted=true";
     }
 
-    @PostMapping("/vacancies/edit/{id}")
-    public String editVacancy(@PathVariable Long id, @RequestParam String position, @RequestParam Double salary) {
-        Vacancy vacancy = vacancyService.findByIdVacancy(id);
-        if (vacancy != null) {
-            vacancy.setPosition(position);
-            vacancy.setSalary(salary);
-            vacancyService.save(vacancy);
-        }
-        return "redirect:/manager/vacancies?updated=true";
-    }
-
-    // --- ДІЇ З КАНДИДАТАМИ ---
+    // Редагування анкети кандидата
     @PostMapping("/candidates/edit/{id}")
     public String editCandidate(@PathVariable Long id,
                                 @RequestParam String firstName,
@@ -80,30 +89,22 @@ public class ManagerController {
         return "redirect:/manager/users?success=candidate_updated";
     }
 
+    // Повне видалення профілю та акаунту кандидата (з очищенням відгуків)
     @Transactional
     @PostMapping("/candidates/delete/{id}")
     public String deleteCandidate(@PathVariable Long id) {
         Candidates candidate = candidatesService.findById(id);
 
         if (candidate != null) {
-            // 1. Видаляємо всі відгуки, де фігурує цей кандидат
             jobApplicationService.deleteByCandidate(candidate);
-
-            // 2. Зберігаємо посилання на юзера в окрему змінну перед видаленням кандидата
             Users user = candidate.getUser();
-
-            // 3. Видаляємо спочатку КАНДИДАТА. Зв'язок розірвано!
             candidatesService.deleteCandidate(candidate);
-
-            // 4. Тепер спокійно видаляємо користувача, на якого більше ніхто не посилається
-            if (user != null) {
-                userService.deleteUser(user);
-            }
+            if (user != null) {userService.deleteUser(user);}
         }
         return "redirect:/manager/users?success=candidate_deleted";
     }
 
-    // --- ДІЇ З КОМПАНІЯМИ ---
+    // Редагування даних компанії
     @PostMapping("/companies/edit/{id}")
     public String editCompany(@PathVariable Long id, @RequestParam String name, @RequestParam String address) {
         Company company = companyService.findById(id);
@@ -115,34 +116,27 @@ public class ManagerController {
         return "redirect:/manager/users?success=company_updated";
     }
 
+    // Повне видалення компанії з її вакансіями, відгуками та акаунтом
     @Transactional
     @PostMapping("/companies/delete/{id}")
     public String deleteCompany(@PathVariable Long id) {
         Company company = companyService.findById(id);
 
         if (company != null) {
-            // 1. Знаходимо та видаляємо всі вакансії та їхні відгуки
             List<Vacancy> vacancies = vacancyService.findByCompany(company);
             for (Vacancy vacancy : vacancies) {
                 jobApplicationService.deleteByVacancy(vacancy);
                 vacancyService.deleteVacancyById(vacancy.getId());
             }
-
-            // 2. Запам'ятовуємо користувача
             Users user = company.getUser();
-
-            // 3. Видаляємо КОМПАНІЮ
             companyService.deleteCompany(company);
-
-            // 4. Видаляємо юзера
-            if (user != null) {
-                userService.deleteUser(user);
-            }
+            if (user != null) {userService.deleteUser(user);}
         }
+
         return "redirect:/manager/users?success=company_deleted";
     }
 
-    // --- ДІЇ З ВІДГУКАМИ ---
+    // Видалення запису із журналу взаємодії (відгуку/запрошення)
     @PostMapping("/applications/delete/{id}")
     public String deleteApplication(@PathVariable Long id) {
         jobApplicationService.deleteById(id);

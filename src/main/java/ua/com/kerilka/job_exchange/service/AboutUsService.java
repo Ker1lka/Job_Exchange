@@ -14,9 +14,9 @@ public class AboutUsService {
 
     private final Path filePath = Paths.get("about.txt");
 
+    // Читання тексту "Про нас" із файлу (з дефолтним текстом у разі відсутності файлу)
     public String getAboutText() {
         if (!Files.exists(filePath)) {
-            // Дефолтний текст, якщо файл ще не створено
             return "Ми — молода команда, що прагне спростити процес взаємодії між роботодавцями та шукачами роботи. Наша мета — створити прозорий та ефективний ринок праці.";
         }
         try {
@@ -26,7 +26,7 @@ public class AboutUsService {
         }
     }
 
-    // Метод для запису тексту
+    // Запис оновленого тексту "Про нас" у текстовий файл
     public void saveAboutText(String newText) {
         try {
             Files.writeString(filePath, newText);

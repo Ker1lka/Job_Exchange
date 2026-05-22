@@ -22,13 +22,11 @@ public class JobApplication {
 
     @ManyToOne
     @JoinColumn(name = "vacancy_id", nullable = false)
-    private Vacancy vacancy; // Твоя сутність вакансії
+    private Vacancy vacancy;
 
-    // Хто надіслав запит: "COMPANY" (запрошення) або "CANDIDATE" (відгук)
     @Column(name = "initiated_by", nullable = false)
     private String initiatedBy;
 
-    // Статус: "PENDING" (очікує), "ACCEPTED" (прийнято), "REJECTED" (відхилено)
     @Column(nullable = false)
     private String status = "PENDING";
 }

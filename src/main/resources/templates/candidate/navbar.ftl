@@ -12,12 +12,7 @@
                     <a class="nav-link active" href="/candidate/vacancies">Vacancies</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/about-us">About-us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/favorites">
-                        <i class="bi bi-star me-1 text-warning"></i> Обране
-                    </a>
+                    <a href="/about-us" class="nav-link">Про нас</a>
                 </li>
             </ul>
             <form class="d-flex ms-auto" method="get" action="/candidate/vacancies">

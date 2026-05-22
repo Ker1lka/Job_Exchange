@@ -14,7 +14,7 @@ public class CandidatesService {
     private final CandidatesRepository candidatesRepository;
 
     public List<Candidates> findAllCandidates() {
-        return candidatesRepository.findAll();
+        return candidatesRepository.findAllRealCandidates();
     }
     public List<Candidates> searchCandidatesByProfession(String keyword) {
         return candidatesRepository.findByProfessionContainingIgnoreCase(keyword);
@@ -41,6 +41,8 @@ public class CandidatesService {
     public void updateCandidate(Candidates candidate) {
         candidatesRepository.save(candidate);
     }
+
+    public void deleteCandidate(Candidates candidates){candidatesRepository.delete(candidates);}
 
     public void deleteCandidateById(Long id) {
         candidatesRepository.deleteById(id);

@@ -52,6 +52,4 @@ public class Candidates {
 
     @OneToMany(mappedBy = "candidate")
     public List<JobApplication> jobApplications = new ArrayList<>();
-
-
 }

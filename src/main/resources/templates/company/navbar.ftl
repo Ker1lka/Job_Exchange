@@ -12,7 +12,7 @@
                     <a class="nav-link" href="/company/candidates">Candidates</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/about-us">About-us</a>
+                    <a href="/about-us" class="nav-link">Про нас</a>
                 </li>
             </ul>
             <form class="d-flex ms-auto" method="get" action="/company/candidates">

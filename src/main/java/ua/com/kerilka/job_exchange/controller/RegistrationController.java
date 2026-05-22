@@ -4,6 +4,7 @@ package ua.com.kerilka.job_exchange.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +30,7 @@ public class RegistrationController {
     private final UserService userService;
     private final CandidatesService candidatesService;
     private final CompanyService companyService;
+    private final PasswordEncoder getPasswordEncoder;
 
     //Candidate Register
     @GetMapping("/registration/candidate")
@@ -86,7 +88,7 @@ public class RegistrationController {
         if (bindingResult.hasErrors() || bindingResult2.hasErrors()) {return "registration-company";}
 
         // 3. Хешування паролю та збереження користувача
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        user.setPassword(getPasswordEncoder.encode(user.getPassword()));
         Users userById = userService.saveNewUser(user);
 
         Roles candidateCompany = roleService.findByName("ROLE_company");

@@ -31,7 +31,7 @@ public class ProfileController {
         Users user = userService.findUserByUsername(principal.getName());
 
         boolean isCandidate = user.getRoles().stream()
-                .anyMatch(role -> role.getName().equals("ROLE_CANDIDATE"));
+                .anyMatch(role -> role.getName().equals("ROLE_candidate"));
 
         if (isCandidate) {
             return "redirect:/profile/candidate";

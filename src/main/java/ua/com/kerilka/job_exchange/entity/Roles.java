@@ -29,16 +29,8 @@ public class Roles implements GrantedAuthority {
         this.id = id;
         this.name = name;
     }
-
     @Override
     public @Nullable String getAuthority() {
         return getName();
-    }
-
-    @Override
-    public String toString() {
-        return "Roles{" +
-                "name='" + name + '\'' +
-                '}';
     }
 }

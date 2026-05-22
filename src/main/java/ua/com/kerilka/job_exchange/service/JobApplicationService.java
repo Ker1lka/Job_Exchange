@@ -24,6 +24,8 @@ public class JobApplicationService {
     // 1. Отримати всі пропозиції конкретної компанії
     public List<JobApplication> findAllByCompany(Company company) {return jobApplicationRepository.findByVacancyCompany(company);}
 
+    public List<JobApplication> findAllApplications() {return jobApplicationRepository.findAll();}
+
     public List<JobApplication> findByCandidate(Candidates candidate) {return jobApplicationRepository.findByCandidate(candidate);}
     public JobApplication findById(Long id) {return jobApplicationRepository.findById(id).get();}
 
@@ -49,4 +51,12 @@ public class JobApplicationService {
     }
 
     public void save(JobApplication jobApplication){jobApplicationRepository.save(jobApplication);}
+
+    public void deleteById(Long id){jobApplicationRepository.deleteById(id);}
+
+    public void deleteByVacancy(Vacancy vacancy){jobApplicationRepository.deleteByVacancy(vacancy);}
+
+
+    public void deleteByCandidate(Candidates candidate){jobApplicationRepository.deleteByCandidate(candidate);}
+
 }

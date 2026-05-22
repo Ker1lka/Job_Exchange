@@ -36,6 +36,10 @@ public class UserService implements UserDetailsService {
     public List<Users> findAllUsers() {
         return usersRepository.findAll();
     }
+
+    public Users findById(Long id) {return usersRepository.findById(id).orElse(null);}
+    public void save(Users user) {usersRepository.save(user);}
+
     public List<Users> findAllRoles() {return usersRepository.findAll();}
     public void addRoleToUser(Long userId, Long roleId){usersRepository.addRoleToUser(userId, roleId);}
     public void deteleRoleFromUser(Long userId, Long roleId){usersRepository.deleteRoleFromUser(userId, roleId);}

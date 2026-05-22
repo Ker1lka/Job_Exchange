@@ -21,7 +21,11 @@
                     <li class="list-group-item bg-transparent">Help Center</li>
                 </ul>
             </div>
-
+            <div class="row mt-4 pt-3 border-top border-light-subtle">
+                <div class="col text-center text-muted small">
+                    © 2026 Job Exchange.
+                </div>
+            </div>
         </div>
     </div>
 </footer>

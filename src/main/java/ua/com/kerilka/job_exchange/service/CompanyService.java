@@ -15,7 +15,7 @@ import java.util.List;
 public class CompanyService {
     private final CompanyRepository companyRepository;
 
-    public List<Company> findAllCompanies() {return companyRepository.findAll();}
+    public List<Company> findAllCompanies() {return companyRepository.findAllRealCompanies();}
     public Company findById(Long id) {return companyRepository.findById(id).get();}
 
     public Company findByUser(Users user) {return companyRepository.findByUser(user)
@@ -25,5 +25,6 @@ public class CompanyService {
 
     public void save(Company company) {companyRepository.save(company);}
     public void updateCompany(Company company) {companyRepository.save(company);}
+    public void deleteCompany(Company company) {companyRepository.delete(company);}
     public void deleteCompanyById(long id) {companyRepository.deleteById(id);}
 }

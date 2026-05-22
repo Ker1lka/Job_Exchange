@@ -59,7 +59,15 @@ public class WebSecurity {
                 .logout(logout -> logout
                         .logoutSuccessUrl("/")
                         .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")               // URL, на який відправлятиметься запит
+                        .logoutSuccessUrl("/login?logout")  // Куди перенаправити після успішного виходу
+                        .invalidateHttpSession(true)        // Анулювати сесію
+                        .clearAuthentication(true)          // Очистити дані авторизації
+                        .permitAll()
                 );
+        ;
 
         return http.build();
     }

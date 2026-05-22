@@ -46,11 +46,5 @@
                 </div>
             </div>
         </div>
-
-        <div class="text-center mt-5 mb-5">
-            <a href="/" class="btn btn-outline-primary btn-lg px-5 rounded-pill shadow-sm">
-                Переглянути вакансії <i class="bi bi-arrow-right ms-2"></i>
-            </a>
-        </div>
     </div>
 </@p.pages>

@@ -29,16 +29,6 @@ public class Users implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Roles> roles =  new HashSet<>();
 
-
-    @Override
-    public String toString() {
-        return "Users{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", roles=" + roles +
-                '}';
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();

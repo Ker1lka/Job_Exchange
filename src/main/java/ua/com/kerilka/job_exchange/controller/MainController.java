@@ -6,10 +6,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import ua.com.kerilka.job_exchange.service.AboutUsService;
 
 @Controller
 @RequiredArgsConstructor
 public class MainController {
+
+    private final AboutUsService aboutUsService;
 
     @GetMapping("/")
     public String index() {return "index";}
@@ -43,10 +46,14 @@ public class MainController {
                 .findFirst()
                 .orElse("");
 
-        if (role.equals("ROLE_company")) {
-            return "redirect:/company/candidates"; // Компанію — на список кандидатів
+        if (role.equals("ROLE_admin")) {
+            return "redirect:/admin/users"; // кидаємо адміна на першу підсторінку
+        } else if (role.equals("ROLE_manager")) {
+            return "redirect:/manager/vacancies"; // кидаємо менеджера на першу підсторінку
+        } else if (role.equals("ROLE_company")) {
+            return "redirect:/company/candidates";
         } else if (role.equals("ROLE_candidate")) {
-            return "redirect:/candidate/vacancies"; // Кандидата — на список вакансій
+            return "redirect:/candidate/vacancies";
         }
         return "redirect:/";
     }
@@ -55,18 +62,18 @@ public class MainController {
 
     @GetMapping("/about-us")
     public String aboutUs(Authentication authentication, Model model) {
-
-        // Перевіряємо, чи користувач взагалі авторизований
         if (authentication != null && authentication.isAuthenticated()) {
             String role = authentication.getAuthorities().stream()
                     .map(GrantedAuthority::getAuthority)
                     .findFirst()
                     .orElse("guest");
-
-            model.addAttribute("userRole", role); // Передасть "COMPANY" або "CANDIDATE"
+            model.addAttribute("userRole", role);
         } else {
             model.addAttribute("userRole", "guest");
         }
+
+        // ПЕРЕДАЄМО ДИНАМІЧНИЙ ТЕКСТ З ФАЙЛУ В ШАБЛОН ABOUT-US
+        model.addAttribute("aboutText", aboutUsService.getAboutText());
 
         return "about-us";
     }

@@ -16,6 +16,10 @@ public class CandidatesService {
     public List<Candidates> findAllCandidates() {
         return candidatesRepository.findAll();
     }
+    public List<Candidates> searchCandidatesByProfession(String keyword) {
+        return candidatesRepository.findByProfessionContainingIgnoreCase(keyword);
+    }
+
     public Candidates findByUser(Users user) {
         return candidatesRepository.findByUser(user)
                 .orElseGet(() -> {

@@ -18,6 +18,9 @@ public class VacancyService {
     public Vacancy findByIdVacancy(Long id) {return vacancyRepository.findById(id).get();}
     public List<Vacancy> findByCompany(Company company){return vacancyRepository.findByCompany(company);}
     public List<Vacancy> findActiveVacancies(){return vacancyRepository.findByIsClosedFalse();}
+    public List<Vacancy> searchVacanciesByPosition(String keyword) {
+        return vacancyRepository.findByPositionContainingIgnoreCase(keyword);
+    }
 
     public void save(Vacancy vacancy) {vacancyRepository.save(vacancy);}
 

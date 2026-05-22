@@ -31,13 +31,14 @@ public class WebSecurity {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 //All Users
-                                .requestMatchers("/", "/about-us", "/login", "/registration/candidate", "/registration/company").permitAll()
+                                .requestMatchers("/", "/about-us", "/login", "/registration/candidate",
+                                        "/registration/company", "/static/**", "/css/**", "/images/**").permitAll()
 
                                 //Authorized
                                 .requestMatchers("/success").authenticated()
 
                                 //Candidates
-                                .requestMatchers("/thanks", "/profile/candidate/**", "/candidate/**").hasAuthority("ROLE_candidate")
+                                .requestMatchers("/profile/candidate/**", "/candidate/**").hasAuthority("ROLE_candidate")
 
                                 //Company
                                 .requestMatchers("/profile/company/**", "/company/**").hasAuthority("ROLE_company")

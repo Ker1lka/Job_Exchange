@@ -40,5 +40,7 @@ public class UserService implements UserDetailsService {
     public void addRoleToUser(Long userId, Long roleId){usersRepository.addRoleToUser(userId, roleId);}
     public void deteleRoleFromUser(Long userId, Long roleId){usersRepository.deleteRoleFromUser(userId, roleId);}
     public void updateUser(Users user) {usersRepository.save(user);}
+
+    public void deleteUser(Users user){usersRepository.delete(user);}
     public void deleteUserById(Long id){usersRepository.deleteById(id);}
 }

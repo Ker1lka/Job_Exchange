@@ -34,7 +34,7 @@
 
                     <div class="mb-3">
                         <label for="companyName" class="form-label fw-semibold">Назва компанії / Організації</label>
-                        <input type="text" class="form-control" id="companyName" name="companyName" required placeholder="Наприклад: ТОВ 'Інновація'">
+                        <input type="text" class="form-control" id="companyName" name="name" required placeholder="Наприклад: ТОВ 'Інновація'">
                     </div>
 
                     <div class="mb-3">
@@ -44,16 +44,16 @@
 
                     <div class="mb-4">
                         <label for="contacts" class="form-label fw-semibold">Контактна особа (Телефон / ПІБ)</label>
-                        <input type="text" class="form-control" id="contacts" name="contacts" required placeholder="+380670000000, Олег">
+                        <input type="text" class="form-control" id="contacts" name="contactInfo" required placeholder="+380670000000, Олег">
                     </div>
 
                     <h5 class="fw-bold text-secondary mb-3 border-bottom pb-2">Обліковий запис</h5>
 
                     <div class="mb-3">
-                        <label for="username" class="form-label fw-semibold">(Логін)</label>
+                        <label for="username" class="form-label fw-semibold">Логін</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                            <input type="text" class="form-control" id="username" name="username" required placeholder="hr@company.com">
+                            <input type="text" class="form-control" id="username" name="username" required>
                         </div>
                     </div>
 

@@ -99,7 +99,9 @@
                         </form>
                     </#if>
                 </div>
-
+                <button onclick="window.print();" class="btn btn-light border fw-semibold text-dark shadow-sm">
+                    <i class="bi bi-file-earmark-pdf text-danger me-2">Зберегти вакансію в PDF / Друк</i>
+                </button>
             </div>
         </div>
     </div>

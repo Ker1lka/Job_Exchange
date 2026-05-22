@@ -5,10 +5,13 @@ import org.springframework.stereotype.Repository;
 import ua.com.kerilka.job_exchange.entity.Candidates;
 import ua.com.kerilka.job_exchange.entity.Users;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface CandidatesRepository extends JpaRepository<Candidates, Long> {
     Optional<Candidates> findByUser(Users user);
+
+    List<Candidates> findByProfessionContainingIgnoreCase(String profession);
 }
 

@@ -15,9 +15,9 @@
                     <a class="nav-link" href="/about-us">About-us</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                <button class="btn btn-outline-success" type="submit">Search</button>
+            <form class="d-flex ms-auto" method="get" action="/company/candidates">
+                <input class="form-control me-2" type="search" name="search" placeholder="Пошук кандидатів..." aria-label="Search" value="${RequestParameters.search!''}">
+                <button class="btn btn-outline-success" type="submit">Знайти</button>
             </form>
         </div>
     </div>

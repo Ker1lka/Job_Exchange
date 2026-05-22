@@ -70,7 +70,21 @@
                             <p class="mb-0" style="white-space: pre-line;">${(candidate.jobRequirements)!"Вимоги ще не сформульовані. Додайте інформацію про бажану зарплату чи графік!"}</p>
                         </div>
                     </div>
-
+                    <button onclick="window.print();" class="btn btn-outline-secondary fw-semibold shadow-sm text-nowrap">
+                        <i class="bi bi-printer me-2">Роздрукувати резюме / PDF</i>
+                    </button>
+                    <div class="card border-danger mt-5 shadow-sm">
+                        <div class="card-body d-flex justify-content-between align-items-center bg-light-danger rounded">
+                            <div>
+                                <h5 class="fw-bold text-danger mb-1">Видалення акаунту</h5>
+                                <p class="text-muted small mb-0">Усі ваші дані, відгуки та резюме будуть безповоротно стерті з бази даних.</p>
+                            </div>
+                            <form method="post" action="/profile/candidate/delete" onsubmit="return confirm('Ви впевнені, що хочете повністю видалити свій профіль? Цю дію неможливо скасувати!');">
+                                <input type="hidden" name="${(_csrf.parameterName)!''}" value="${(_csrf.token)!''}"/>
+                                <button type="submit" class="btn btn-danger fw-bold px-4">Видалити профіль</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

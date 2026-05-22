@@ -22,15 +22,18 @@ public class VacancyController {
     private final UserService userService;
     private final JobApplicationService jobApplicationService;
 
-    @GetMapping("/thanks")
-    public String showSuccessPage() {
-        return "thanks";
-    }
-
     @GetMapping("/candidate/vacancies")
-    public String listAllVacancies(Model model) {
+    public String listAllVacancies(@RequestParam(value = "search", required = false) String search, Model model) {
         // Отримуємо всі вакансії (у сервісі можна відфільтрувати тільки активні: isClosed = false)
-        List<Vacancy> vacanciesList = vacancyService.findActiveVacancies();
+        List<Vacancy> vacanciesList;
+
+        if (search != null && !search.trim().isEmpty()) {
+            // Якщо шукають — викликаємо пошук (можна шукати тільки серед активних)
+            vacanciesList = vacancyService.searchVacanciesByPosition(search);
+        } else {
+            // Якщо пошуковий рядок порожній — повертаємо твій стандартний список
+            vacanciesList = vacancyService.findActiveVacancies();
+        }
 
         model.addAttribute("vacanciesList", vacanciesList);
 

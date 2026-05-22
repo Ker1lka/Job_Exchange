@@ -11,4 +11,6 @@ import java.util.List;
 public interface VacancyRepository extends JpaRepository<Vacancy, Long> {
     List<Vacancy> findByCompany(Company company);
     List<Vacancy> findByIsClosedFalse();
+
+    List<Vacancy> findByPositionContainingIgnoreCase(String search);
 }

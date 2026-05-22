@@ -1,6 +1,9 @@
 package ua.com.kerilka.job_exchange.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +28,18 @@ public class CompanyController {
 
     // Перегляд списку всіх кандидатів (База безробітних)
     @GetMapping("/company/candidates")
-    public String listAllCandidates(Model model) {
-        List<Candidates> allCandidates = candidatesService.findAllCandidates();
-        model.addAttribute("candidatesList", allCandidates);
+    public String listAllCandidates(@RequestParam(value = "search", required = false) String search, Model model) {
+        List<Candidates> candidatesList;
+
+        if (search != null && !search.trim().isEmpty()) {
+            candidatesList = candidatesService.searchCandidatesByProfession(search);
+        } else {
+            // Якщо пошук порожній — виводимо всю базу резюме як зазвичай
+            candidatesList = candidatesService.findAllCandidates();
+        }
+
+        model.addAttribute("candidatesList", candidatesList);
+
         return "company-candidates-list";
     }
 
@@ -56,7 +68,6 @@ public class CompanyController {
 
 
     //Edit Profile Company
-
     @GetMapping("/profile/company/edit")
     public String showEditForm(Principal principal, Model model) {
         // Отримуємо поточного користувача і його компанію
@@ -182,5 +193,38 @@ public class CompanyController {
             jobApplicationService.save(app);
         }
         return "redirect:/profile/company";
+    }
+
+    //Деталі кандидата з відгука на вакансію
+    @GetMapping("/profile/company/applications/candidates/{id}")
+    public String showCandidateProfileForCompany(@PathVariable Long id, Model model) {
+        // 1. Знаходимо кандидата за його ID
+        Candidates candidate = candidatesService.findById(id); // Переконайся, що такий метод є в сервісі
+
+        if (candidate == null) {
+            return "redirect:/profile/company?error=CandidateNotFound";
+        }
+
+        model.addAttribute("candidate", candidate);
+        return "company-view-candidate"; // Новий шаблон
+    }
+
+    //Delete Company Profile
+
+    @PostMapping("/profile/company/delete")
+    public String deleteCompanyProfile(Principal principal, HttpServletRequest request) {
+        Users user = userService.findUserByUsername(principal.getName());
+
+        // Видаляємо користувача (каскад видалить компанію та її вакансії)
+        userService.deleteUser(user);
+
+        // Розлогінюємо
+        SecurityContextHolder.clearContext();
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+
+        return "redirect:/";
     }
 }

@@ -9,14 +9,9 @@ import ua.com.kerilka.job_exchange.entity.Vacancy;
 import java.util.List;
 
 public interface JobApplicationRepository extends JpaRepository<JobApplication, Long> {
-
     List<JobApplication> findByVacancyCompany(Company company);
-
     List<JobApplication> findByCandidate(Candidates candidate);
-
     JobApplication findByCandidateAndVacancy(Candidates candidate, Vacancy vacancy);
-
     void deleteByCandidate(Candidates candidate);
-
     void deleteByVacancy(Vacancy vacancy);
 }

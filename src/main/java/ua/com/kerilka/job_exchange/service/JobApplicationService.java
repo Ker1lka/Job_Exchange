@@ -21,13 +21,6 @@ public class JobApplicationService {
     private final CandidatesRepository candidatesRepository;
     private final VacancyRepository vacancyRepository;
 
-    public List<JobApplication> findAllByCompany(Company company) {return jobApplicationRepository.findByVacancyCompany(company);}
-    public List<JobApplication> findAllApplications() {return jobApplicationRepository.findAll();}
-    public List<JobApplication> findByCandidate(Candidates candidate) {return jobApplicationRepository.findByCandidate(candidate);}
-    public JobApplication findById(Long id) {return jobApplicationRepository.findById(id).get();}
-    public JobApplication findByCandidateAndVacancy(Candidates candidate, Vacancy vacancy) {
-        return jobApplicationRepository.findByCandidateAndVacancy(candidate, vacancy);
-    }
 
     // Створення нового запрошення на роботу від імені компанії
     @Transactional
@@ -47,6 +40,13 @@ public class JobApplicationService {
         jobApplicationRepository.save(application);
     }
 
+    public List<JobApplication> findAllByCompany(Company company) {return jobApplicationRepository.findByVacancyCompany(company);}
+    public List<JobApplication> findAllApplications() {return jobApplicationRepository.findAll();}
+    public List<JobApplication> findByCandidate(Candidates candidate) {return jobApplicationRepository.findByCandidate(candidate);}
+    public JobApplication findById(Long id) {return jobApplicationRepository.findById(id).get();}
+    public JobApplication findByCandidateAndVacancy(Candidates candidate, Vacancy vacancy) {
+        return jobApplicationRepository.findByCandidateAndVacancy(candidate, vacancy);
+    }
     public void save(JobApplication jobApplication){jobApplicationRepository.save(jobApplication);}
 
     public void deleteById(Long id){jobApplicationRepository.deleteById(id);}

@@ -45,9 +45,7 @@ public class Users implements UserDetails {
     }
 
     @Override
-    public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
-    }
+    public boolean isCredentialsNonExpired() {return UserDetails.super.isCredentialsNonExpired();}
 
     @Override
     public boolean isEnabled() {

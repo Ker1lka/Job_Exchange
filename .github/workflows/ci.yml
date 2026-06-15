@@ -1,0 +1,28 @@
+name: CI - Java Code Verification
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin' # Найпопулярніший і стабільний дистрибутив Java
+          cache: 'maven'         # Кешує завантажені бібліотеки, щоб білд йшов швидше
+
+      - name: Build and run tests with Maven
+        run: mvn clean compile
+
+      - name: Package Application (Check production build)
+        run: mvn package -DskipTests # Просто перевіряємо, що jar-архів збирається без помилок

@@ -3,6 +3,7 @@ package ua.com.kerilka.job_exchange.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import ua.com.kerilka.job_exchange.service.*;
 import java.security.Principal;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class CompanyController {
@@ -70,6 +72,7 @@ public class CompanyController {
         Company company = companyService.findByUser(user);
 
         model.addAttribute("company", company);
+        log.info("Користувач перейшов на сторінку профілю компанії для редагування");
         return "edit-company-profile";
     }
 

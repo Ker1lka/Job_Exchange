@@ -8,6 +8,7 @@ class JobExchangeApplicationTests {
 
     @Test
     void contextLoads() {
+        //This is just method
     }
 
 }

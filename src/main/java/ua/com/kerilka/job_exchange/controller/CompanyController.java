@@ -20,6 +20,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CompanyController {
 
+    private static final String REDIRECT_PROFILE_COMPANY = "redirect:/profile/company";
+
     private final UserService userService;
     private final CandidatesService candidatesService;
     private final CompanyService companyService;
@@ -87,7 +89,7 @@ public class CompanyController {
 
         companyService.save(company);
 
-        return "redirect:/profile/company";
+        return REDIRECT_PROFILE_COMPANY;
     }
 
     // Перегляд власних вакансій компанії
@@ -152,7 +154,7 @@ public class CompanyController {
             app.setStatus("ACCEPTED");
             jobApplicationService.save(app);
         }
-        return "redirect:/profile/company";
+        return REDIRECT_PROFILE_COMPANY;
     }
 
     @PostMapping("/profile/company/applications/{id}/reject")
@@ -162,7 +164,7 @@ public class CompanyController {
             app.setStatus("REJECTED");
             jobApplicationService.save(app);
         }
-        return "redirect:/profile/company";
+        return REDIRECT_PROFILE_COMPANY;
     }
 
     // Перегляд анкети безробітного через журнал відгуків
